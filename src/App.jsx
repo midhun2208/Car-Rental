@@ -4,10 +4,22 @@ import LoginForm from "./Components/Users/Pages/Auth/LoginFrom";
 import Login from "./Components/Admin/Pages/Login/Login";
 import AdminDashboard from "./Components/Admin/Pages/AdminDashboard/AdminDashboard";
 import AddCarForm from "./Components/Admin/Pages/AddCars/AddCarForm";
+import ShowNavBar from "./Components/Admin/AdminCommon/AdminNavBar";
+import AdminHeader from "./Components/Admin/AdminCommon/AdminHeader";
+import Header from "./Components/Users/Common/Header";
+import ShowNavBarLogin from "./Components/Users/Common/UserNavBar";
 
 function App() {
   return (
     <div className="App">
+      <ShowNavBar>
+        <AdminHeader/>
+      </ShowNavBar>
+      <ShowNavBarLogin>
+      <Header/>
+      </ShowNavBarLogin>
+      
+      
       <Routes>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/login/admin" element={<Login />} />

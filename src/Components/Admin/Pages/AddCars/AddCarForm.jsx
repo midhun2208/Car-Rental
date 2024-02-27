@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import {  Container, Row, Col, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import "./AddCarForm.css";
-import AdminHeader from "../../AdminCommon/AdminHeader";
 import { TextField } from "@mui/material";
 import { MDBBtn } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +38,7 @@ const AddCarForm = () => {
 
   return (
     <>
-      <AdminHeader />
+     
 
      <div className="addCar-main">
      <Container>

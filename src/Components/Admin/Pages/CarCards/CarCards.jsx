@@ -1,13 +1,6 @@
 import React from "react";
-import { Container, Col, Row } from "react-bootstrap";
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCardImage,
-  MDBBtn,
-} from "mdb-react-ui-kit";
+import { Container} from "react-bootstrap";
+
 
 function CarCards() {
   return (

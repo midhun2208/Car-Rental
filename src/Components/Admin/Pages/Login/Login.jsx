@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import './LoginForm.css'
 import { Link, useNavigate } from 'react-router-dom';
+import { TextField } from '@mui/material';
+
 
 
 
@@ -18,40 +20,37 @@ function Login() {
       }
   return (
     <div>
-<div className="form">
-        <h2 className='text-center text-white my-5'>Admin Login</h2>
+<div className="form-admin">
+        <h2 className='text-center text-white my-3'>Admin Login</h2>
         <form onSubmit={handleFormSubmit}>
-            <div className="field-wrap">
-              <input
-                placeholder="Enter you Email"
-                type="email"
-                value={login.email}
-                onChange={(e) =>
-                  setLogin({
-                    ...login,
-                    email: e.target.value,
-                  })
-                }
-                required
-                autoComplete="off"
-              />
+            <div className="">
+            <TextField
+              
+              id=""
+              label="Enter your email"
+              variant="filled"
+              fullWidth
+              className="mt-3 admin-login-input"
+              value={login.email}
+              onChange={(e)=> setLogin({...login,email:e.target.value})}
+              required
+              
+            />
             </div>
 
-            <div className="field-wrap">
-              <input
-              className='mb-3 mt-5'
-                placeholder="Enter you password"
-                type="password"
-                value={login.password}
-                onChange={(e) =>
-                  setLogin({
-                    ...login,
-                    password: e.target.value,
-                  })
-                }
-                required
-                autoComplete="off"
-              />
+            <div className="">
+            <TextField
+              
+              id=""
+              label="Enter your password"
+              variant="filled"
+              fullWidth
+              className="mt-4 admin-login-input"
+              value={login.password}
+              onChange={(e)=> setLogin({...login,password:e.target.value})}
+              required
+              
+            />
             </div>
 
             <p className="forgot"></p>

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./LoginForm.css";
 import { Link, useNavigate } from "react-router-dom";
-import { MDBBtn } from "mdb-react-ui-kit";
+import { TextField } from "@mui/material";
+
+
 
 function LoginFrom() {
   const [activeTab, setActiveTab] = useState("signup");
@@ -14,12 +16,21 @@ function LoginFrom() {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    if(activeTab != 'singup'){
+      setRegistration({
+        name: "",
+        email: "",
+        password: "",
+      });
+    }
   };
   console.log(registration);
 
+  
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (activeTab == "singup") {
+    if (activeTab === "singup") {
       setRegistration({
         name: "",
         email: "",
@@ -32,7 +43,7 @@ function LoginFrom() {
     // Perform form submission logic here
   };
   return (
-    <div className="form-login">
+    <div className="form-login-user">
       <ul className="tab-group">
         <li
           className={`tab ${activeTab === "signup" ? "active" : ""}`}
@@ -56,55 +67,46 @@ function LoginFrom() {
           <h1>Sign Up for Free</h1>
 
           <form onSubmit={handleFormSubmit}>
-            <div className="field-wrap">
-              <input
-              className="input-login"
-                placeholder="First Name"
-                type="text"
-                value={registration.name}
-                onChange={(e) =>
-                  setRegistration({
-                    ...registration,
-                    name: e.target.value,
-                  })
-                }
-                required
-                autoComplete="off"
-              />
+            <div className="">
+            <TextField
+              id=""
+              label="Enter your name"
+              variant="filled"
+              fullWidth
+              className="mt-3 admin-login-input"
+              value={registration.name}
+              onChange={(e)=> setRegistration({...registration,name:e.target.value})}
+              required
+              
+            />
             </div>
 
-            <div className="field-wrap">
-              <input
-              className="input-login"
-                placeholder="Email"
-                type="email"
-                value={registration.email}
-                onChange={(e) =>
-                  setRegistration({
-                    ...registration,
-                    email: e.target.value,
-                  })
-                }
-                required
-                autoComplete="off"
-              />
+            <div className="">
+            <TextField
+              id=""
+              label="Enter your email"
+              variant="filled"
+              fullWidth
+              className="mt-3 admin-login-input"
+              value={registration.email}
+              onChange={(e)=> setRegistration({...registration,email:e.target.value})}
+              required
+              
+            />
             </div>
 
-            <div className="field-wrap">
-              <input
-              className="input-login"
-                placeholder="Password"
-                type="password"
-                value={registration.password}
-                onChange={(e) =>
-                  setRegistration({
-                    ...registration,
-                    password: e.target.value,
-                  })
-                }
-                required
-                autoComplete="off"
-              />
+            <div className="">
+            <TextField
+              id=""
+              label="Enter your password"
+              variant="filled"
+              fullWidth
+              className="my-3 admin-login-input"
+              value={registration.password}
+              onChange={(e)=> setRegistration({...registration,password:e.target.value})}
+              required
+              
+            />
             </div>
 
             <button type="submit" className="button button-block">
@@ -120,38 +122,32 @@ function LoginFrom() {
           <h1>Welcome Back!</h1>
 
           <form onSubmit={handleFormSubmit}>
-            <div className="field-wrap">
-              <input
-              className="input-login"
-                placeholder="Enter you Email"
-                type="email"
-                value={registration.email}
-                onChange={(e) =>
-                  setRegistration({
-                    ...registration,
-                    email: e.target.value,
-                  })
-                }
-                required
-                autoComplete="off"
-              />
+            <div className="">
+            <TextField
+              id=""
+              label="Enter your email"
+              variant="filled"
+              fullWidth
+              className="mt-3 admin-login-input"
+              value={registration.email}
+              onChange={(e)=> setRegistration({...registration,email:e.target.value})}
+              required
+              
+            />
             </div>
 
-            <div className="field-wrap">
-              <input
-              className="input-login"
-                placeholder="Enter you password"
-                type="password"
-                value={registration.password}
-                onChange={(e) =>
-                  setRegistration({
-                    ...registration,
-                    password: e.target.value,
-                  })
-                }
-                required
-                autoComplete="off"
-              />
+            <div className="">
+            <TextField
+              id=""
+              label="Enter your password"
+              variant="filled"
+              fullWidth
+              className="my-3 admin-login-input"
+              value={registration.password}
+              onChange={(e)=> setRegistration({...registration,password:e.target.value})}
+              required
+              
+            />
             </div>
 
             <p className="forgot"></p>
