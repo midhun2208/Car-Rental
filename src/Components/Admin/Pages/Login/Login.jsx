@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './LoginForm.css'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 
 
@@ -58,6 +59,13 @@ function Login() {
             <button type="submit" className="button button-block mt-5">
               Log In
             </button>
+          <div className='text-center'>
+          <Link to={'/login'}>
+          <button className='btn btn-success mt-3 '>
+          User-Login
+            </button>
+          </Link>
+          </div>
           </form>
 </div>
     </div>

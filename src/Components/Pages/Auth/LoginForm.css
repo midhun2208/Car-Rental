@@ -5,7 +5,7 @@
     color: #14795e;
   }
   
-  .form {
+  .form-login {
     background: rgba(19, 35, 47, 0.9);
     padding: 40px;
     max-width: 600px;
@@ -60,7 +60,7 @@
     font-weight: 300;
     margin: 0 0 40px;
   }
-  
+/*   
   label {
     position: absolute;
     transform: translateY(6px);
@@ -85,9 +85,9 @@
   
   label.highlight {
     color: #ffffff;
-  }
+  } */
   
-  input,
+  .input-login,
   textarea {
     font-size: 22px;
     display: block;
@@ -102,7 +102,7 @@
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
   }
   
-  input:focus,
+  .input-login:focus,
   textarea:focus {
     outline: 0;
     border-color: #1ab188;

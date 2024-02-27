@@ -32,7 +32,7 @@ function LoginFrom() {
     // Perform form submission logic here
   };
   return (
-    <div className="form">
+    <div className="form-login">
       <ul className="tab-group">
         <li
           className={`tab ${activeTab === "signup" ? "active" : ""}`}
@@ -58,6 +58,7 @@ function LoginFrom() {
           <form onSubmit={handleFormSubmit}>
             <div className="field-wrap">
               <input
+              className="input-login"
                 placeholder="First Name"
                 type="text"
                 value={registration.name}
@@ -74,6 +75,7 @@ function LoginFrom() {
 
             <div className="field-wrap">
               <input
+              className="input-login"
                 placeholder="Email"
                 type="email"
                 value={registration.email}
@@ -90,6 +92,7 @@ function LoginFrom() {
 
             <div className="field-wrap">
               <input
+              className="input-login"
                 placeholder="Password"
                 type="password"
                 value={registration.password}
@@ -119,6 +122,7 @@ function LoginFrom() {
           <form onSubmit={handleFormSubmit}>
             <div className="field-wrap">
               <input
+              className="input-login"
                 placeholder="Enter you Email"
                 type="email"
                 value={registration.email}
@@ -135,6 +139,7 @@ function LoginFrom() {
 
             <div className="field-wrap">
               <input
+              className="input-login"
                 placeholder="Enter you password"
                 type="password"
                 value={registration.password}
