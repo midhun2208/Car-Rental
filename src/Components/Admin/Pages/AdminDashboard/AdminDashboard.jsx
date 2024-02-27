@@ -1,14 +1,14 @@
 import React from "react";
 import AdminHeader from "../../AdminCommon/AdminHeader";
 import "./AdminDashboard.css"
+import CarCards from "../CarCards/CarCards";
 
 function AdminDashboard() {
   
   return (
     <>
       <AdminHeader />
-
-      <div className="background-image"></div>
+      <CarCards></CarCards>
     </>
   );
 }
