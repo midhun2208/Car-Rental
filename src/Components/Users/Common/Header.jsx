@@ -13,13 +13,12 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
-
+import "./Header.css"
 
 // const pages = ["Products", "Pricing", "Blog"];
 
-
 function Header() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -37,13 +36,13 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const handleLogout = ()=>{
-    navigate('/login')
-  }
+  const handleLogout = () => {
+    navigate("/login");
+  };
 
   return (
     <div>
-      <AppBar position="static" className="navbar">
+      <AppBar position="static" className="navbar-user">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -58,7 +57,7 @@ function Header() {
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
-                color: "Black",
+                color: "White",
                 textDecoration: "none",
               }}
             >
@@ -72,7 +71,7 @@ function Header() {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color="Black"
+                color="White"
               >
                 <MenuIcon />
               </IconButton>
@@ -94,8 +93,10 @@ function Header() {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                <MenuItem>
-                  <Typography textAlign="center">Home</Typography>
+                <MenuItem className="navbar-lists">
+                  <Typography textAlign="center" className="navbar-lists">
+                    Home
+                  </Typography>
                 </MenuItem>
                 <MenuItem>
                   <Typography textAlign="center">Listing</Typography>
@@ -133,15 +134,17 @@ function Header() {
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               <Button
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "black", display: "block" }}
+                sx={{ my: 2, color: "White", display: "block" }}
               >
                 <MenuItem>
-                  <Typography textAlign="center">Home</Typography>
+                  <Typography textAlign="center" className="navbar-lists">
+                    Home
+                  </Typography>
                 </MenuItem>
               </Button>
               <Button
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "black", display: "block" }}
+                sx={{ my: 2, color: "White", display: "block" }}
               >
                 <MenuItem>
                   <Typography textAlign="center">Listing</Typography>
@@ -149,7 +152,7 @@ function Header() {
               </Button>
               <Button
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "black", display: "block" }}
+                sx={{ my: 2, color: "White", display: "block" }}
               >
                 <MenuItem>
                   <Typography textAlign="center">Blog</Typography>
@@ -157,7 +160,7 @@ function Header() {
               </Button>
               <Button
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "black", display: "block" }}
+                sx={{ my: 2, color: "White", display: "block" }}
               >
                 <MenuItem>
                   <Typography textAlign="center">About</Typography>
@@ -165,7 +168,7 @@ function Header() {
               </Button>
               <Button
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "black", display: "block" }}
+                sx={{ my: 2, color: "White", display: "block" }}
               >
                 <MenuItem>
                   <Typography textAlign="center">Conact</Typography>
@@ -195,7 +198,7 @@ function Header() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem >
+                <MenuItem>
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>

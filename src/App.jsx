@@ -8,6 +8,7 @@ import ShowNavBar from "./Components/Admin/AdminCommon/AdminNavBar";
 import AdminHeader from "./Components/Admin/AdminCommon/AdminHeader";
 import Header from "./Components/Users/Common/Header";
 import ShowNavBarLogin from "./Components/Users/Common/UserNavBar";
+import UserDashboard from "./Components/Users/Pages/UserDashboard/UserDashboard";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/login/admin" element={<Login />} />
         <Route path="/adminDashboard" element={<AdminDashboard />} />
         <Route path="/admin/AddCar" element={<AddCarForm/>}/>
+        <Route path="/" element={<UserDashboard/>}/>
       </Routes>
     </div>
   );

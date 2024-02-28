@@ -64,7 +64,7 @@ function LoginFrom() {
           id="signup"
           style={{ display: activeTab === "signup" ? "block" : "none" }}
         >
-          <h1>Sign Up for Free</h1>
+          <h1 className="h1">Sign Up for Free</h1>
 
           <form onSubmit={handleFormSubmit}>
             <div className="">
@@ -119,7 +119,7 @@ function LoginFrom() {
           id="login"
           style={{ display: activeTab === "login" ? "block" : "none" }}
         >
-          <h1>Welcome Back!</h1>
+          <h1 className="h1">Welcome Back!</h1>
 
           <form onSubmit={handleFormSubmit}>
             <div className="">
