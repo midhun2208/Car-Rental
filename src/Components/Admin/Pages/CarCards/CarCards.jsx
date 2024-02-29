@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 function CarCards() {
   const [carsData, setCarsData] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     getCarsDetails();
@@ -13,7 +16,7 @@ function CarCards() {
   const getCarsDetails = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Un Authorized person");
+      navigate('/login')
     } else {
       try {
         const response = await axios.get(

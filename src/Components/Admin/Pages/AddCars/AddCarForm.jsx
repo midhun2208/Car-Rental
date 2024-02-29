@@ -29,6 +29,7 @@ const AddCarForm = () => {
     console.log(`Token: ${token}`);
     if (!token) {
       alert("You are not authorized");
+      
     } else {
       try {
         const response = await axios.post(
@@ -162,7 +163,7 @@ const AddCarForm = () => {
                     value={carDetails.image}
                     accept="image/*"
                     onChange={(e) =>
-                      setCarDetails({ ...carDetails, image: e.target.files[0] })
+                      setCarDetails({ ...carDetails, image: e.target.file })
                     }
                     required
                   />
