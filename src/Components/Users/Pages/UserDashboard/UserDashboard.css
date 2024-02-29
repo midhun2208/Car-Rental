@@ -28,7 +28,7 @@
     background-color: rgb(255, 255, 255);
     padding: 20px;
     border-radius: 20px;
-    margin-top: -20px;
+    margin-top: -60px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .selection-bar{
@@ -51,5 +51,9 @@
     .img-home{
         width: 100%;
         
+    }
+    .main-selection-box{
+        display: block;
+        justify-content: space-between;
     }
   }

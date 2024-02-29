@@ -2,45 +2,80 @@ import React, { useState } from "react";
 import "./LoginForm.css";
 import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
-
-
+import axios from "axios";
 
 function LoginFrom() {
   const [activeTab, setActiveTab] = useState("signup");
   const [registration, setRegistration] = useState({
-    name: "",
-    email: "",
+    firstname: "",
+    lastname: "",
+    email_address: "",
     password: "",
+    username: "",
+    phone: "",
   });
   const navigate = useNavigate();
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    if(activeTab != 'singup'){
+    if (activeTab != "singup") {
       setRegistration({
-        name: "",
-        email: "",
+        firstname: "",
+        lastname: "",
+        email_address: "",
         password: "",
+        username: "",
+        phone: "",
       });
     }
   };
+
   console.log(registration);
 
-  
-
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit =async (e) => {
     e.preventDefault();
-    if (activeTab === "singup") {
-      setRegistration({
-        name: "",
-        email: "",
-        password: "",
-      });
-      setActiveTab("login");
-    } else {
-      navigate("/");
-    }
+   try {
+    const response = await axios.post('http://127.0.0.1:8000/customerapi/register/',(registration))
+    alert(`Registraion Successful ur Username:${registration.username} Password: ${registration.password}`)
+    setRegistration({
+      firstname: "",
+      lastname: "",
+      email_address: "",
+      password: "",
+      username: "",
+      phone: ""})
+      setActiveTab("login")
+    
+   } catch (error) {
+    alert("Registration Error")
+    console.log(error);
+   }
     // Perform form submission logic here
+  };
+  const handleloginn = async () => {
+    const { username, password } = registration;
+    console.log({ username, password });
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000/customerapi/token/`,
+        { username, password }
+      );
+      console.log("Login Successful:", response.data);
+      localStorage.setItem("token", (response.data.token));
+      localStorage.setItem("username", (registration.username));
+      alert("Login  success");
+      navigate("/")
+      setRegistration({
+        firstname: "",
+        lastname: "",
+        email_address: "",
+        password: "",
+        username: "",
+        phone: ""})
+      
+    } catch (error) {
+      alert("Login Failed");
+    }
   };
   return (
     <div className="form-login-user">
@@ -68,45 +103,95 @@ function LoginFrom() {
 
           <form onSubmit={handleFormSubmit}>
             <div className="">
-            <TextField
-              id=""
-              label="Enter your name"
-              variant="filled"
-              fullWidth
-              className="mt-3 admin-login-input"
-              value={registration.name}
-              onChange={(e)=> setRegistration({...registration,name:e.target.value})}
-              required
-              
-            />
+              <TextField
+                id=""
+                label="First Name"
+                variant="filled"
+                className="mt-3 admin-login-input"
+                value={registration.firstname}
+                onChange={(e) =>
+                  setRegistration({
+                    ...registration,
+                    firstname: e.target.value,
+                  })
+                }
+                required
+              />
+              <TextField
+                id=""
+                label="Last Name"
+                variant="filled"
+                className="mt-3 ms-3 admin-login-input"
+                value={registration.lastname}
+                onChange={(e) =>
+                  setRegistration({ ...registration, lastname: e.target.value })
+                }
+                required
+              />
             </div>
 
             <div className="">
-            <TextField
-              id=""
-              label="Enter your email"
-              variant="filled"
-              fullWidth
-              className="mt-3 admin-login-input"
-              value={registration.email}
-              onChange={(e)=> setRegistration({...registration,email:e.target.value})}
-              required
-              
-            />
+              <TextField
+                id=""
+                label="Enter your email"
+                variant="filled"
+                fullWidth
+                className="mt-3 admin-login-input"
+                value={registration.email_address}
+                onChange={(e) =>
+                  setRegistration({
+                    ...registration,
+                    email_address: e.target.value,
+                  })
+                }
+                required
+                type="email"
+              />
+            </div>
+            <div className="">
+              <TextField
+                id=""
+                label="Enter your phone"
+                variant="filled"
+                fullWidth
+                className="mt-3 admin-login-input"
+                value={registration.phone}
+                onChange={(e) =>
+                  setRegistration({ ...registration, phone: e.target.value })
+                }
+                required
+                type="number"
+              />
+            </div>
+            <div className="">
+              <TextField
+                id=""
+                label="Enter your username"
+                variant="filled"
+                fullWidth
+                className="mt-3 admin-login-input"
+                value={registration.username}
+                onChange={(e) =>
+                  setRegistration({ ...registration, username: e.target.value })
+                }
+                required
+              />
             </div>
 
             <div className="">
-            <TextField
-              id=""
-              label="Enter your password"
-              variant="filled"
-              fullWidth
-              className="my-3 admin-login-input"
-              value={registration.password}
-              onChange={(e)=> setRegistration({...registration,password:e.target.value})}
-              required
-              
-            />
+              <TextField
+                id=""
+                label="Enter your password"
+                variant="filled"
+                fullWidth
+                className="my-3 admin-login-input"
+                value={registration.password}
+                onChange={(e) =>
+                  setRegistration({ ...registration, password: e.target.value })
+                }
+                type="password"
+                required
+              />
             </div>
 
             <button type="submit" className="button button-block">
@@ -121,33 +206,35 @@ function LoginFrom() {
         >
           <h1 className="h1">Welcome Back!</h1>
 
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleloginn}>
             <div className="">
-            <TextField
-              id=""
-              label="Enter your email"
-              variant="filled"
-              fullWidth
-              className="mt-3 admin-login-input"
-              value={registration.email}
-              onChange={(e)=> setRegistration({...registration,email:e.target.value})}
-              required
-              
-            />
+              <TextField
+                id=""
+                label="Enter your username"
+                variant="filled"
+                fullWidth
+                className="mt-3 admin-login-input"
+                value={registration.username}
+                onChange={(e) =>
+                  setRegistration({ ...registration, username: e.target.value })
+                }
+                required
+              />
             </div>
 
             <div className="">
-            <TextField
-              id=""
-              label="Enter your password"
-              variant="filled"
-              fullWidth
-              className="my-3 admin-login-input"
-              value={registration.password}
-              onChange={(e)=> setRegistration({...registration,password:e.target.value})}
-              required
-              
-            />
+              <TextField
+                id=""
+                label="Enter your password"
+                variant="filled"
+                fullWidth
+                className="my-3 admin-login-input"
+                value={registration.password}
+                onChange={(e) =>
+                  setRegistration({ ...registration, password: e.target.value })
+                }
+                required
+              />
             </div>
 
             <p className="forgot"></p>

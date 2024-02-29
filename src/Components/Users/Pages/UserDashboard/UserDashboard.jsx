@@ -5,6 +5,7 @@ import { Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { MDBBtn } from "mdb-react-ui-kit";
 import "react-datepicker/dist/react-datepicker.css";
+import UserCards from "../UserCards/UserCards";
 function UserDashboard() {
   const [startDate, setStartDate] = useState(new Date());
   return (
@@ -18,9 +19,10 @@ function UserDashboard() {
                   <h1 className=" text-white  heading-car-rental ">
                     Welcome to CarRental
                   </h1>
+                  <br />
                   <h2 className=" text-start">
-                    -Drive Your Dreams: Unleash the Ultimate &nbsp;&nbsp;
-                    Journey with Our &nbsp;
+                    -Drive Your Dreams: Unleash the Ultimate Journey with Our
+                    &nbsp;
                     <span style={{ color: "white" }}>
                       &nbsp;Premium Car Rental Services!
                     </span>{" "}
@@ -45,7 +47,10 @@ function UserDashboard() {
             </Row>
           </div>
           {/* Selection bar */}
-          <Container>
+         
+        </div>
+      </div>
+      <Container>
             <Row>
               <Col lg={12}>
                 <div className="Search-bar">
@@ -89,8 +94,7 @@ function UserDashboard() {
               </Col>
             </Row>
           </Container>
-        </div>
-      </div>
+      <UserCards />
     </>
   );
 }

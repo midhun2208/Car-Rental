@@ -1,74 +1,85 @@
-import React, { useState } from 'react'
-import './LoginForm.css'
-import { Link, useNavigate } from 'react-router-dom';
-import { TextField } from '@mui/material';
-
-
-
-
+import React, { useState } from "react";
+import "./LoginForm.css";
+import { Link, useNavigate } from "react-router-dom";
+import { TextField } from "@mui/material";
+import axios from "axios";
 
 function Login() {
-    const navigate = useNavigate()
-    const [login, setLogin] = useState({
-        name: "",
-        email: "",
-        password: "",
-      });
-      const handleFormSubmit= (e)=>{
-        e.preventDefault();
-        navigate('/adminDashboard')
-      }
+  const navigate = useNavigate();
+  const [login, setLogin] = useState({
+    username: "",
+    email_address: "",
+    password: "",
+  });
+  console.log(login);
+  const handleFormSubmit = async(e) => {
+    e.preventDefault();
+    try {
+      const {username,password} = login
+      const response = await axios.post(`http://127.0.0.1:8000/adminapi/token/`,({username,password}))
+      console.log("Login Successful:", response.data);
+      localStorage.setItem("token",(response.data.token));
+      alert("Login  success");
+      navigate("/adminDashboard");
+    } catch (error) {
+      console.log(error);
+      alert("login Failed")
+    }
+    
+  };
+
+  
+
+ 
   return (
     <div>
-<div className="form-admin">
-        <h2 className='text-center text-white my-3'>Admin Login</h2>
+      <div className="form-admin">
+        <h2 className="text-center text-white my-3">Admin Login</h2>
         <form onSubmit={handleFormSubmit}>
-            <div className="">
+          <div className="">
+          
             <TextField
-              
               id=""
-              label="Enter your email"
+              label="Enter your username"
               variant="filled"
               fullWidth
               className="mt-3 admin-login-input"
-              value={login.email}
-              onChange={(e)=> setLogin({...login,email:e.target.value})}
+              value={login.username}
+              onChange={(e) =>
+                setLogin({ ...login, username: e.target.value })
+              }
               required
-              
             />
-            </div>
+          </div>
 
-            <div className="">
+          <div className="">
             <TextField
-              
               id=""
               label="Enter your password"
               variant="filled"
               fullWidth
               className="mt-4 admin-login-input"
               value={login.password}
-              onChange={(e)=> setLogin({...login,password:e.target.value})}
+              onChange={(e) => setLogin({ ...login, password: e.target.value })}
               required
-              
+              type="password"
             />
-            </div>
-
-            <p className="forgot"></p>
-
-            <button type="submit" className="button button-block mt-5">
-              Log In
-            </button>
-          <div className='text-center'>
-          <Link to={'/login'}>
-          <button className='btn btn-success mt-3 '>
-          User-Login
-            </button>
-          </Link>
           </div>
-          </form>
-</div>
+
+          <p className="forgot"></p>
+
+          <button type="submit" className="button button-block mt-5" >
+            Log In
+          </button>
+          <div className="text-center">
+            <Link to={"/login"}>
+              <button className="btn btn-success mt-3 " >User-Login</button>
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;

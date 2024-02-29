@@ -8,6 +8,7 @@ function AdminHeader() {
 
   const Singout = (e) => {
     e.preventDefault();
+    localStorage.clear()
     navigate("/login");
   };
 

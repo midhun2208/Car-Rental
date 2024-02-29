@@ -37,6 +37,7 @@ function Header() {
     setAnchorElUser(null);
   };
   const handleLogout = () => {
+    localStorage.clear()
     navigate("/login");
   };
 
