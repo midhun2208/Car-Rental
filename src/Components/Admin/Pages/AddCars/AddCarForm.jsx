@@ -9,6 +9,16 @@ import axios from "axios";
 
 const AddCarForm = () => {
   const navigate = useNavigate();
+  const [photo, setPhoto] = useState(null);
+
+  const HandelImgChange = (e) => {
+    const file = e.target.files[0];
+    setPhoto(file);
+    setCarDetails((prevDetails) => ({
+      ...prevDetails,
+      image: file,
+    }));
+  };
 
   const [carDetails, setCarDetails] = useState({
     make: "",
@@ -18,48 +28,57 @@ const AddCarForm = () => {
     reg_number: "",
     image: "",
     amountperhr: Number,
-    
   });
   console.log(carDetails);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     console.log(token);
     console.log(`Token: ${token}`);
-    if (!token) {
-      alert("You are not authorized");
-      
-    } else {
-      try {
-        const response = await axios.post(
-          `http://127.0.0.1:8000/adminapi/rentalvehicles/`,
-          (carDetails),
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
-        );
 
-        alert("Car Added Successfully");
-        setCarDetails({
-          make: "",
-          model: "",
-          year: "",
-          colour: "",
-          reg_number: "",
-          image: "",
-          amountperhr: "",
-         
-        });
-        navigate("/adminDashboard");
-      } catch (error) {
-        alert("Car was Not Added");
-        console.log(error);
-      }
+    if (!token) {
+      navigate('/login')
+      
+      return;
     }
-    // Handle form submission logic here
+
+    const formData = new FormData();
+    formData.append("make", carDetails.make);
+    formData.append("model", carDetails.model);
+    formData.append("year", carDetails.year);
+    formData.append("colour", carDetails.colour);
+    formData.append("reg_number", carDetails.reg_number);
+    formData.append("amountperhr", carDetails.amountperhr);
+    formData.append("image", carDetails.image);
+
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000/adminapi/rentalvehicles/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+
+      alert("Car Added Successfully");
+      setCarDetails({
+        make: "",
+        model: "",
+        year: "",
+        colour: "",
+        reg_number: "",
+        image: null, // Clear the image after upload
+        amountperhr: 0,
+      });
+      navigate("/adminDashboard");
+    } catch (error) {
+      alert("Car was Not Added");
+      console.log(error);
+    }
   };
 
   return (
@@ -160,11 +179,7 @@ const AddCarForm = () => {
                     fullWidth
                     className="mt-3 text-filed"
                     type="file"
-                    value={carDetails.image}
-                    accept="image/*"
-                    onChange={(e) =>
-                      setCarDetails({ ...carDetails, image: e.target.file })
-                    }
+                    onChange={HandelImgChange}
                     required
                   />
 
