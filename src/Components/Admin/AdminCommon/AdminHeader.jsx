@@ -35,11 +35,7 @@ function AdminHeader() {
                 </Link>
               </div>
             </Navbar.Text>
-            <Navbar.Text>
-              <div className="admin-options mx-4">
-                <h5>Approval</h5>
-              </div>
-            </Navbar.Text>
+            
 
             <Navbar.Text className="admin-options">
               <div className="btn btn-danger" onClick={Singout}>

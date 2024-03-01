@@ -32,24 +32,29 @@ function LoginFrom() {
 
   console.log(registration);
 
-  const handleFormSubmit =async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-   try {
-    const response = await axios.post('http://127.0.0.1:8000/customerapi/register/',(registration))
-    alert(`Registraion Successful ur Username:${registration.username} Password: ${registration.password}`)
-    setRegistration({
-      firstname: "",
-      lastname: "",
-      email_address: "",
-      password: "",
-      username: "",
-      phone: ""})
-      setActiveTab("login")
-    
-   } catch (error) {
-    alert("Registration Error")
-    console.log(error);
-   }
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/customerapi/register/",
+        registration
+      );
+      alert(
+        `Registraion Successful ur Username:${registration.username} Password: ${registration.password}`
+      );
+      setRegistration({
+        firstname: "",
+        lastname: "",
+        email_address: "",
+        password: "",
+        username: "",
+        phone: "",
+      });
+      setActiveTab("login");
+    } catch (error) {
+      alert("Registration Error");
+      console.log(error);
+    }
     // Perform form submission logic here
   };
   const handleloginn = async () => {
@@ -61,18 +66,18 @@ function LoginFrom() {
         { username, password }
       );
       console.log("Login Successful:", response.data);
-      localStorage.setItem("token", (response.data.token));
-      localStorage.setItem("username", (registration.username));
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("username", registration.username);
       alert("Login  success");
-      navigate("/")
+      navigate("/");
       setRegistration({
         firstname: "",
         lastname: "",
         email_address: "",
         password: "",
         username: "",
-        phone: ""})
-      
+        phone: "",
+      });
     } catch (error) {
       alert("Login Failed");
     }
