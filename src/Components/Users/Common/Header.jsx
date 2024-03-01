@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import "./Header.css"
+import { message } from "antd";
 
 // const pages = ["Products", "Pricing", "Blog"];
 
@@ -38,6 +39,7 @@ function Header() {
   };
   const handleLogout = () => {
     localStorage.clear()
+    message.error("LoggedOut")
     navigate("/login");
   };
 

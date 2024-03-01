@@ -1,3 +1,4 @@
+import { message } from "antd";
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,6 +10,7 @@ function AdminHeader() {
   const Singout = (e) => {
     e.preventDefault();
     localStorage.clear()
+    message.error("Admin signout")
     navigate("/login");
   };
 
@@ -24,12 +26,14 @@ function AdminHeader() {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              <div className="admin-options">
-                <h5>Listing</h5>
+              <div className="admin-options ">
+              <Link to={"/adminDashboard"}>
+                <h5 className="text-white">Listing</h5>
+                </Link>
               </div>
             </Navbar.Text>
             <Navbar.Text>
-              <div className="admin-options ms-4">
+              <div className="admin-options mx-4">
                 <Link to={"/admin/AddCar"}>
                   <h5 className="text-white">Add Cars</h5>
                 </Link>

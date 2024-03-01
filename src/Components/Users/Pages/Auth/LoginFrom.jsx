@@ -3,6 +3,7 @@ import "./LoginForm.css";
 import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import axios from "axios";
+import { message } from "antd";
 
 function LoginFrom() {
   const [activeTab, setActiveTab] = useState("signup");
@@ -18,7 +19,7 @@ function LoginFrom() {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    if (activeTab != "singup") {
+    if (activeTab !== "singup" ) {
       setRegistration({
         firstname: "",
         lastname: "",
@@ -30,7 +31,6 @@ function LoginFrom() {
     }
   };
 
-  console.log(registration);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -38,9 +38,6 @@ function LoginFrom() {
       const response = await axios.post(
         "http://127.0.0.1:8000/customerapi/register/",
         registration
-      );
-      alert(
-        `Registraion Successful ur Username:${registration.username} Password: ${registration.password}`
       );
       setRegistration({
         firstname: "",
@@ -51,25 +48,22 @@ function LoginFrom() {
         phone: "",
       });
       setActiveTab("login");
+      message.success("Registration Successful")
     } catch (error) {
-      alert("Registration Error");
+      message.success("Registration Error");
       console.log(error);
     }
     // Perform form submission logic here
   };
   const handleloginn = async () => {
     const { username, password } = registration;
-    console.log({ username, password });
     try {
       const response = await axios.post(
         `http://127.0.0.1:8000/customerapi/token/`,
         { username, password }
       );
-      console.log("Login Successful:", response.data);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("username", registration.username);
-      alert("Login  success");
-      navigate("/");
       setRegistration({
         firstname: "",
         lastname: "",
@@ -78,8 +72,11 @@ function LoginFrom() {
         username: "",
         phone: "",
       });
+     message.success("Login Successful")
+      
+      navigate("/");
     } catch (error) {
-      alert("Login Failed");
+      message.error("Check your Username or Password");
     }
   };
   return (
@@ -165,7 +162,7 @@ function LoginFrom() {
                   setRegistration({ ...registration, phone: e.target.value })
                 }
                 required
-                type="number"
+                type="tel"
               />
             </div>
             <div className="">
@@ -239,6 +236,7 @@ function LoginFrom() {
                   setRegistration({ ...registration, password: e.target.value })
                 }
                 required
+                type="password"
               />
             </div>
 

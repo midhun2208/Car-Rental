@@ -6,6 +6,7 @@ import { TextField } from "@mui/material";
 import { MDBBtn } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { message } from "antd";
 
 const AddCarForm = () => {
   const navigate = useNavigate();
@@ -39,7 +40,6 @@ const AddCarForm = () => {
 
     if (!token) {
       navigate('/login')
-      
       return;
     }
 
@@ -64,7 +64,7 @@ const AddCarForm = () => {
         }
       );
 
-      alert("Car Added Successfully");
+      message.success("Car Added Successfully");
       setCarDetails({
         make: "",
         model: "",
@@ -76,7 +76,7 @@ const AddCarForm = () => {
       });
       navigate("/adminDashboard");
     } catch (error) {
-      alert("Car was Not Added");
+      message.error("Car was Not Added");
       console.log(error);
     }
   };

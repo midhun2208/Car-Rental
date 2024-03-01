@@ -3,6 +3,7 @@ import "./LoginForm.css";
 import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import axios from "axios";
+import { message } from "antd";
 
 function Login() {
   const navigate = useNavigate();
@@ -19,11 +20,11 @@ function Login() {
       const response = await axios.post(`http://127.0.0.1:8000/adminapi/token/`,({username,password}))
       console.log("Login Successful:", response.data);
       localStorage.setItem("token",(response.data.token));
-      alert("Login  success");
+      message.success("Login  success");
       navigate("/adminDashboard");
     } catch (error) {
       console.log(error);
-      alert("login Failed")
+      message.error("Wrong Username or Password");
     }
     
   };
