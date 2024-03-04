@@ -10,8 +10,14 @@
 
 .cards-cars{
     background-color: rgba(255, 255, 255, 0.141);
-    color: rgb(255, 255, 255);
+    color: rgba(255, 255, 255, 0.613);
     border-radius: 10px;
+    transition: transform 0.5s;
+    
+}
+.cards-cars:hover{
+    transform: scale(1.1); 
+    /* box-shadow: rgba(255, 254, 254, 0.843) 0px 5px 15px; */
 }
 .span-avalible{
     display: flex;
@@ -20,4 +26,7 @@
     background-color: rgb(0, 255, 0);
     padding: 5px;
     border-radius: 10px;
+}
+.button-book{
+    background-color: rgb(0, 136, 255);
 }

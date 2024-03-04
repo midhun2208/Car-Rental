@@ -50,7 +50,7 @@ function LoginFrom() {
       setActiveTab("login");
       message.success("Registration Successful")
     } catch (error) {
-      message.success("Registration Error");
+      message.success("Username already taken");
       console.log(error);
     }
     // Perform form submission logic here

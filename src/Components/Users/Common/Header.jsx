@@ -12,9 +12,10 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { useNavigate } from "react-router-dom";
-import "./Header.css"
+import { Link, useNavigate } from "react-router-dom";
+import "./Header.css";
 import { message } from "antd";
+
 
 // const pages = ["Products", "Pricing", "Blog"];
 
@@ -38,14 +39,14 @@ function Header() {
     setAnchorElUser(null);
   };
   const handleLogout = () => {
-    localStorage.clear()
-    message.error("LoggedOut")
+    localStorage.clear();
+    message.error("LoggedOut");
     navigate("/login");
   };
 
   return (
-    <div>
-      <AppBar position="static" className="navbar-user">
+    <>
+      <AppBar position="" className="navbar-user">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -135,7 +136,7 @@ function Header() {
               LOGO
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <Button
+              <Link to={'/'}><Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "White", display: "block" }}
               >
@@ -144,15 +145,17 @@ function Header() {
                     Home
                   </Typography>
                 </MenuItem>
-              </Button>
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "White", display: "block" }}
-              >
-                <MenuItem>
-                  <Typography textAlign="center">Listing</Typography>
-                </MenuItem>
-              </Button>
+              </Button></Link>
+              <a href="/#car-listing ">
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "White", display: "block" }}
+                >
+                  <MenuItem>
+                    <Typography textAlign="center">Listing</Typography>
+                  </MenuItem>
+                </Button>
+              </a>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "White", display: "block" }}
@@ -212,7 +215,7 @@ function Header() {
           </Toolbar>
         </Container>
       </AppBar>
-    </div>
+    </>
   );
 }
 

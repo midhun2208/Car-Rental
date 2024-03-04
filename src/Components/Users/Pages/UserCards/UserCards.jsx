@@ -11,7 +11,8 @@ import {
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 function UserCards() {
   const [availableCars, setAvailableCars] = useState(null);
@@ -93,13 +94,11 @@ function UserCards() {
                 <hr />
                 <MDBListGroupItem>
                   <b>Status:</b>{" "}
-                  <mark className="avalible-car ">
-                    {item.rental_status}{" "}
-                  </mark>
+                  <mark className="avalible-car ">{item.rental_status} </mark>
                 </MDBListGroupItem>
                 <MDBCardBody>
                   <hr />
-                  <button className="btn btn-white">Book Now</button>
+                 <Link to={`/userRentalPayment/${item.id}`}> <button className="btn btn-white mb-2">Book Now</button></Link>
                 </MDBCardBody>
               </div>
             </Col>

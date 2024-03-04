@@ -9,6 +9,7 @@ import AdminHeader from "./Components/Admin/AdminCommon/AdminHeader";
 import Header from "./Components/Users/Common/Header";
 import ShowNavBarLogin from "./Components/Users/Common/UserNavBar";
 import UserDashboard from "./Components/Users/Pages/UserDashboard/UserDashboard";
+import PaymentUserRental from "./Components/Users/Pages/PaymentUserRental/PaymentUserRental";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/adminDashboard" element={<AdminDashboard />} />
         <Route path="/admin/AddCar" element={<AddCarForm/>}/>
         <Route path="/" element={<UserDashboard/>}/>
+        <Route path='/userRentalPayment/:id' element={<PaymentUserRental/>}/>
       </Routes>
     </div>
   );

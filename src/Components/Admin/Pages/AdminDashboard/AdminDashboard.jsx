@@ -6,7 +6,6 @@ function AdminDashboard() {
   
   return (
     <>
-      
       <CarCards></CarCards>
     </>
   );

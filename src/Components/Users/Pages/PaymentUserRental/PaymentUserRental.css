@@ -1,0 +1,18 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
+
+
+
+.payment-row{
+    border: 1px solid black;
+}
+h3{
+    color: black;
+}
+.heading-payment{
+    color: rgba(0, 0, 0, 0.762);
+    font-family: "Anta", sans-serif;
+}
+.main-payment{
+    font-family: "Anta", sans-serif;
+}
