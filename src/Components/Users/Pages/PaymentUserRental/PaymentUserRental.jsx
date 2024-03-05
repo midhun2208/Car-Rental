@@ -3,47 +3,47 @@ import "./PaymentUserRental.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import dayjs from "dayjs";
-
-dayjs.extend(customParseFormat);
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Swal from "sweetalert2";
 
 function PaymentUserRental() {
+  // for the modal open and close
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  //Other states
+
   const navigate = useNavigate();
   const { id } = useParams();
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [rental_startdate, setStartDate] = useState(new Date());
+  const [rental_enddate, setEndDate] = useState(new Date());
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [carData, setCarData] = useState(null);
+  console.log(rental_startdate, rental_enddate);
 
   const handleStartDateChange = (date) => {
-    setStartDate(new Date(date));
-    console.log(startDate);
+    setStartDate(date);
   };
 
   const handleEndDateChange = (date) => {
-    setEndDate(new Date(date));
-    console.log(endDate);
-    if(startDate){
-        setTotalAmount(calculateDifferenceInHours() * parseInt(carData.amountperhr,10))
-        console.log("calculateDifferenceInHours"+calculateDifferenceInHours());
+    setEndDate(date);
+    if (rental_startdate) {
+      var hour = calculateDifferenceInHours();
+      var rate = parseInt(carData.amountperhr, 10);
+      setTotalAmount(hour * rate);
     }
-    
   };
 
-  const [totalAmount,setTotalAmount] = useState(null)
-
-  
-
-
-  const [carData, setCarData] = useState(null);
-  console.log(id);
   useEffect(() => {
     CarDataForPayment();
   }, []);
-  //fOR fETCHING THE DATA FROM THE BACKEND
+
   const CarDataForPayment = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -58,21 +58,56 @@ function PaymentUserRental() {
         }
       );
       setCarData(response.data);
-      console.log(carData);
     }
   };
-  
-  const calculateDifferenceInHours = () => {
-    console.log("startDate:", startDate);
-    console.log("endDate:", endDate);
 
-    const startDateTime = dayjs(startDate);
-    const endDateTime = dayjs(endDate);
+  const calculateDifferenceInHours = () => {
+    const startDateTime = dayjs(rental_startdate);
+    const endDateTime = dayjs(rental_enddate);
 
     const differenceInHours = endDateTime.diff(startDateTime, "hour");
     return differenceInHours;
   };
-  if (carData == null) return <></>;
+  const handlePayment = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000/customerapi/rentalvehicles/${id}/rental_transaction/`,({
+          rental_startdate: dayjs(rental_startdate).format(),
+          rental_enddate: dayjs(rental_enddate).format(),
+        }),
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      console.log(response);
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Payment Sucessful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate("/");
+      handleClose();
+    } catch (error) {
+      Swal.fire({
+        position: "top-center",
+        icon: "error",
+        title: "Payment Faild Try Again",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
+  if (carData === null) return <></>;
 
   return (
     <div className="main-payment">
@@ -101,36 +136,39 @@ function PaymentUserRental() {
                     </h3>
                   </div>
                   <div className="mb-5">
+                    <h3>
+                      Registration:&nbsp;<mark>{carData.reg_number} </mark>
+                    </h3>
+                  </div>
+                  <div className="mb-5">
                     <h3>Rate For 1hr:&nbsp;{carData.amountperhr}&#8377; </h3>
                   </div>
                   <div className="mb-5">
                     <h3>Year: &nbsp;{carData.year}</h3>
                   </div>
-                  <div className="mb-5">
-                    <h3>
-                      From:
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={["DateTimePicker"]}>
-                          <DateTimePicker
-                            label="Basic date time picker"
-                            onChange={handleStartDateChange}
-                          />
-                        </DemoContainer>
-                      </LocalizationProvider>
-                    </h3>
+                  <div className="mb-2">
+                    <h3>From:</h3>
+                    <DatePicker
+                      selected={rental_startdate}
+                      className="date-time"
+                      onChange={handleStartDateChange}
+                      showTimeSelect
+                      timeFormat="HH:mm"
+                      timeIntervals={60}
+                      dateFormat="yyyy-MM-dd'T'HH:mm:ss"
+                    />
                   </div>
                   <div className="mb-5">
-                    <h3>
-                      to:{" "}
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={["DateTimePicker"]}>
-                          <DateTimePicker
-                            label="Basic date time picker"
-                            onChange={handleEndDateChange}
-                          />
-                        </DemoContainer>
-                      </LocalizationProvider>
-                    </h3>
+                    <h3>to: </h3>
+                    <DatePicker
+                      className="date-time"
+                      selected={rental_enddate}
+                      onChange={handleEndDateChange}
+                      showTimeSelect
+                      timeFormat="HH:mm"
+                      timeIntervals={60}
+                      dateFormat="yyyy-MM-dd'T'HH:mm:ss"
+                    />
                   </div>
                   <div className="mb-5">
                     <h3>Total Aomount: {totalAmount} &#8377;</h3>
@@ -142,7 +180,7 @@ function PaymentUserRental() {
                   <button className="btn btn-danger">Cancel</button>
                 </div>
                 <div className="">
-                  <button className="btn btn-success">
+                  <button className="btn btn-success mb-2" onClick={handleShow}>
                     Procced to Payment
                   </button>
                 </div>
@@ -151,6 +189,65 @@ function PaymentUserRental() {
           </Row>
         </div>
       </Container>
+      <div className=" rounded-lg">
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              <h1 className="text-center text-black">Confirm Payment</h1>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="p-4 text-center shadow-lg div-modal">
+              <div className="bg-gray-300 p-3  color">
+                <div>
+                  Registration NO:
+                  <h3>{carData.reg_number}</h3>
+                </div>
+                <div>
+                  Car Name:
+                  <h3>{carData.model}</h3>
+                </div>
+                <div className="">
+                  From: <br />
+                  <DatePicker
+                    selected={rental_startdate}
+                    className="date-time border-8 bg-gree"
+                    disabled
+                    showTimeSelect
+                    timeFormat="HH:mm"
+                    timeIntervals={60}
+                    dateFormat="yyyy-MM-dd'T'HH:mm:ss"
+                  />
+                </div>
+                <div className="mb-4">
+                  to: <br />
+                  <DatePicker
+                    className="date-time"
+                    selected={rental_enddate}
+                    disabled
+                    showTimeSelect
+                    timeFormat="HH:mm"
+                    timeIntervals={60}
+                    dateFormat="yyyy-MM-dd'T'HH:mm:ss"
+                  />
+                </div>
+                <div>
+                  total:
+                  <h3>{totalAmount} &#8377;</h3>
+                </div>
+              </div>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="success" onClick={handlePayment}>
+              Confirm
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     </div>
   );
 }

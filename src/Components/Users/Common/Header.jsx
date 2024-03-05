@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link, useNavigate } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 import "./Header.css";
 import { message } from "antd";
 
@@ -46,7 +46,7 @@ function Header() {
 
   return (
     <>
-      <AppBar position="" className="navbar-user">
+      <AppBar position="sticky" className="navbar-user">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -97,10 +97,12 @@ function Header() {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                <MenuItem className="navbar-lists">
-                  <Typography textAlign="center" className="navbar-lists">
+                <MenuItem className="">
+                  <Link to={'/'}>
+                  <Typography textAlign="center " className="navbar-lists-in ">
                     Home
                   </Typography>
+                  </Link>
                 </MenuItem>
                 <MenuItem>
                   <Typography textAlign="center">Listing</Typography>
@@ -146,7 +148,7 @@ function Header() {
                   </Typography>
                 </MenuItem>
               </Button></Link>
-              <a href="/#car-listing ">
+              <a href="/#car-listing">
                 <Button
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "White", display: "block" }}
