@@ -5,12 +5,15 @@ function ShowNavBarLogin({ children }) {
   const location = useLocation();
   const [showNavBar, setShowNavBar] = useState(false);
 
+  const user =localStorage.getItem("user")
+
   useEffect(() => {
     if (
       location.pathname === "/adminDashboard" ||
       location.pathname === "/admin/AddCar" ||
       location.pathname === "/login" ||
-      location.pathname === "/login/admin"
+      location.pathname === "/login/admin" ||
+      user === "admin" 
     ) {
       setShowNavBar(false);
     } else {

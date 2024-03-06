@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 
 function CarCards() {
   const [carsData, setCarsData] = useState(null);
@@ -67,7 +66,7 @@ function CarCards() {
                 <td>{item.model}</td>
                 <td>{item.reg_number}</td>
                 <td>{item.rental_status}</td>
-                <td><button className="btn btn-primary"><i class="fa-solid fa-file-pen"></i></button></td>
+                <td><Link to={"/adminDashboard/viewCar/"+item.id}><button className="btn btn-primary"><i class="fa-solid fa-file-pen"></i></button></Link></td>
                 
               </tr>
             ))}

@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-function ShowNavBar({children}) {
+function ShowNavBar({ children }) {
   const location = useLocation();
   const [showNavBar, setShowNavBar] = useState(false);
-
-  useEffect(()=>{
-    if(location.pathname === '/adminDashboard' || location.pathname === '/admin/AddCar'){
-        setShowNavBar(true)
+  const user = localStorage.getItem("user")
+  useEffect(() => {
+    if (
+     user === "admin"
+    ) {
+      setShowNavBar(true);
+    } else {
+      setShowNavBar(false);
     }
-    else{
-        setShowNavBar(false)
-    }
-  },[location])
+  }, [location]);
 
-  return <div>
-    {showNavBar && children}
-  </div>;
+  return <div>{showNavBar && children}</div>;
 }
 
 export default ShowNavBar;

@@ -10,6 +10,7 @@ import Header from "./Components/Users/Common/Header";
 import ShowNavBarLogin from "./Components/Users/Common/UserNavBar";
 import UserDashboard from "./Components/Users/Pages/UserDashboard/UserDashboard";
 import PaymentUserRental from "./Components/Users/Pages/PaymentUserRental/PaymentUserRental";
+import AdminRentalCarView from "./Components/Admin/Pages/CarCards/AdminRentalCarView";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/admin/AddCar" element={<AddCarForm/>}/>
         <Route path="/" element={<UserDashboard/>}/>
         <Route path='/userRentalPayment/:id' element={<PaymentUserRental/>}/>
+        <Route path='/adminDashboard/viewCar/:id' element={<AdminRentalCarView/>}/>
       </Routes>
     </div>
   );

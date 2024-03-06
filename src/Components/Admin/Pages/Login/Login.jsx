@@ -20,6 +20,7 @@ function Login() {
       const response = await axios.post(`http://127.0.0.1:8000/adminapi/token/`,({username,password}))
       console.log("Login Successful:", response.data);
       localStorage.setItem("token",(response.data.token));
+      localStorage.setItem("user","admin");
       message.success("Login  success");
       navigate("/adminDashboard");
     } catch (error) {
