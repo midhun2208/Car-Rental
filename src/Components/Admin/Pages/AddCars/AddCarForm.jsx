@@ -90,7 +90,7 @@ const AddCarForm = () => {
             <Col lg={6} md={12} className="mt-5 p-5 addcar-card">
               <Card className="addcar-card2">
                 <div className="add-car text-center mt-3">
-                  <h2 className="add-car-head">Add A Car</h2>
+                  <h2 className="add-car-head">Add Rental Car</h2>
                 </div>
                 <form className="p-4 form-addcar" onSubmit={handleSubmit}>
                   <TextField
