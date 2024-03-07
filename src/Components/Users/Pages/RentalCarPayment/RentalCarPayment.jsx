@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Pagination } from "react-bootstrap";
 import {
   MDBCard,
-  MDBCardBody,
   MDBCardImage,
-  MDBCardTitle,
   MDBListGroup,
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
@@ -53,39 +51,47 @@ function RentalCarPayment() {
                 <MDBCard className="">
                   <MDBCardImage
                     position="top"
-                    style={{ height: "300px" }}
+                    style={{ height: "200px" }}
                     alt="..."
                     src={`http://127.0.0.1:8000${rentalPayment[activeItem].vehicle.image}`}
                   />
                   <MDBListGroup flush>
                     <MDBListGroupItem>
-                      <h4>
+                      <h4 className="text-black">
                         Car Make: {rentalPayment[activeItem].vehicle.model}
                       </h4>
                     </MDBListGroupItem>
                     <MDBListGroupItem>
-                      <h4>
+                      <h4 className="text-black">
                         Reg_NO : {rentalPayment[activeItem].vehicle.reg_number}
                       </h4>
                     </MDBListGroupItem>
                     <MDBListGroupItem>
-                      <h5>
+                      <h5 className="text-black">
                         Colour: {rentalPayment[activeItem].vehicle.colour}
                       </h5>
                     </MDBListGroupItem>
                     <MDBListGroupItem>
-                      <h5>From:</h5>{" "}
+                      <h6 className="text-black">From:</h6>{" "}
                       {rentalPayment[activeItem].rental_startdate}
                     </MDBListGroupItem>
                     <MDBListGroupItem>
-                      <h5>To: </h5>
+                      <h6 className="text-black">To: </h6>
                       {rentalPayment[activeItem].rental_enddate}
                     </MDBListGroupItem>
                     <MDBListGroupItem>
-                      <h5>
+                      <h5 className="text-black">
                         Total Amount: {rentalPayment[activeItem].totalcost}{" "}
                         &#8377;
                       </h5>
+                    </MDBListGroupItem>
+                    <MDBListGroupItem>
+                      <h5 className="text-black">Damage Status: </h5>
+                      <h6>No Damage reported</h6>
+                    </MDBListGroupItem>
+                    <MDBListGroupItem>
+                      <h6 className="text-black">Report Any Damage </h6>
+                      <button className="btn btn-danger" >Report</button>
                     </MDBListGroupItem>
                   </MDBListGroup>
                 </MDBCard>
