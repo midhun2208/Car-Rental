@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import axios from "axios";
 import { message } from "antd";
+import Swal from "sweetalert2";
+
 
 function Login() {
   const navigate = useNavigate();
@@ -21,7 +23,13 @@ function Login() {
       console.log("Login Successful:", response.data);
       localStorage.setItem("token",(response.data.token));
       localStorage.setItem("user","admin");
-      message.success("Login  success");
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Login Success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       navigate("/adminDashboard");
     } catch (error) {
       console.log(error);

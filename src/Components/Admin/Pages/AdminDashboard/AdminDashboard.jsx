@@ -1,6 +1,6 @@
 import React from "react";
 import "./AdminDashboard.css"
-import CarCards from "../CarCards/CarCards";
+import CarCards from "../CarRentalCards/CarCards";
 
 function AdminDashboard() {
   

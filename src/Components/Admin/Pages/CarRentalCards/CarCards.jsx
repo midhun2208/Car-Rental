@@ -45,7 +45,7 @@ function CarCards() {
     <>
       <Container>
         <div>
-          <h2 className="text-center my-5">All Cars</h2>
+          <h2 className="text-center my-5">All Rental-Cars</h2>
         </div>
         <MDBTable hover>
           <MDBTableHead>

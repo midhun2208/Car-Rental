@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./UserCard.css";
-import { Col, Container, Row, Pagination } from "react-bootstrap";
+import { Col, Pagination } from "react-bootstrap";
 import {
-  MDBCard,
-  MDBCardImage,
   MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCardLink,
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
 import axios from "axios";
@@ -66,7 +61,7 @@ function UserCards() {
       <div className=" cards-main container-fluid">
         <div className="text-black mt-5  row card-div">
           <h2 className="userCard-heading text-center mt-5">
-            - Available Car{" "}
+            - Available Rental-Cars{" "}
           </h2>
           {currentItems.map((item) => (
             <Col md={6} lg={3} className="mt-5 mb-2 p-4" key={item.id}>

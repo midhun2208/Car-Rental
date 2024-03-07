@@ -26,16 +26,23 @@ function AdminHeader() {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              <div className="admin-options ">
+              <div className="admin-options mx-4">
               <Link to={"/adminDashboard"}>
                 <h5 className="text-white">Listing</h5>
                 </Link>
               </div>
             </Navbar.Text>
             <Navbar.Text>
-              <div className="admin-options mx-4">
+              <div className="admin-options">
                 <Link to={"/admin/AddCar"}>
                   <h5 className="text-white">Add Cars</h5>
+                </Link>
+              </div>
+            </Navbar.Text>
+            <Navbar.Text>
+              <div className="admin-options mx-4">
+                <Link to={"/adminDashboard/payments"}>
+                  <h5 className="text-white">Payments</h5>
                 </Link>
               </div>
             </Navbar.Text>

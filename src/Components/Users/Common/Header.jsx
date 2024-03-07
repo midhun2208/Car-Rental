@@ -107,9 +107,10 @@ function Header() {
                 <MenuItem>
                   <Typography textAlign="center">Listing</Typography>
                 </MenuItem>
-                <MenuItem>
-                  <Typography textAlign="center">Blog</Typography>
-                </MenuItem>
+               <Link>
+               <MenuItem>
+                  <Typography textAlign="center">Payment_Rental</Typography>
+                </MenuItem></Link>
                 <MenuItem>
                   <Typography textAlign="center">About</Typography>
                 </MenuItem>
@@ -158,14 +159,17 @@ function Header() {
                   </MenuItem>
                 </Button>
               </a>
+              <Link to={'/userRentalPayment'}>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "White", display: "block" }}
               >
-                <MenuItem>
-                  <Typography textAlign="center">Blog</Typography>
+                 
+               <MenuItem>
+                  <Typography textAlign="center">Rental-Payment</Typography>
                 </MenuItem>
               </Button>
+              </Link>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "White", display: "block" }}

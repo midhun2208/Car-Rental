@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { MDBTable, MDBTableBody } from "mdb-react-ui-kit";
 import Swal from "sweetalert2";
+
 
 const AdminRentalCarView = () => {
   const { id } = useParams();
@@ -14,6 +15,7 @@ const AdminRentalCarView = () => {
     try {
       const response = await axios.post(
         `http://127.0.0.1:8000/adminapi/rentalvehicles/${id}/make_active/`,
+        {},
         {
           headers: {
             Authorization: `Token ${token}`,
@@ -53,15 +55,18 @@ const AdminRentalCarView = () => {
       console.log(error);
     }
   };
-  if (rentalCarData == null) return <></>;
+  if (rentalCarData == null) return <div><h2 className="text-center mt-5">You Have Not Rental Purchase Till Now......</h2></div>;
   return (
     <>
       <Container className="border border-black p-4 mt-5 shadow-lg">
         <Row>
-          <h2 className="text-black text-center">Rental Car Detail</h2>
           <Col lg={12} md={12} p-5>
+            <h2 className="text-black text-center">Rental Car Detail</h2>
             <Row>
-              <Col className="my-5 p-5 my-4" lg={3} md={12}>
+              <div className="text-end me-4">
+                <Link to={'/adminDashboard'}><button className="btn btn-primary ">Back to home <i class="fa-solid fa-arrow-left ms-1"></i></button></Link>
+              </div>
+              <Col className="mb-5 p-5 my-4" lg={3} md={12}>
                 <img
                   src={`http://127.0.0.1:8000${rentalCarData?.image}`}
                   alt=""
@@ -69,7 +74,7 @@ const AdminRentalCarView = () => {
                 />
               </Col>
               <Col className="   p-5" lg={7} md={12}>
-                <MDBTable hover className="mt-5 border border-e-gray-800">
+                <MDBTable hover className="mt-3 border border-e-gray-800">
                   <MDBTableBody>
                     <tr>
                       <td>
@@ -102,7 +107,9 @@ const AdminRentalCarView = () => {
                                 rentalCarData?.rental_status === "Available"
                               }
                               onChange={handleSwitchChange}
-                              checked = { rentalCarData?.rental_status === "Available"}
+                              checked={
+                                rentalCarData?.rental_status === "Available"
+                              }
                             />
                           </Form>
                         </h4>

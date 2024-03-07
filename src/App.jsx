@@ -10,7 +10,9 @@ import Header from "./Components/Users/Common/Header";
 import ShowNavBarLogin from "./Components/Users/Common/UserNavBar";
 import UserDashboard from "./Components/Users/Pages/UserDashboard/UserDashboard";
 import PaymentUserRental from "./Components/Users/Pages/PaymentUserRental/PaymentUserRental";
-import AdminRentalCarView from "./Components/Admin/Pages/CarCards/AdminRentalCarView";
+import AdminRentalCarView from "./Components/Admin/Pages/CarRentalCards/AdminRentalCarView";
+import Payment from "./Components/Admin/Pages/Payments/Payment";
+import RentalCarPayment from "./Components/Users/Pages/RentalCarPayment/RentalCarPayment";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
         <Route path="/" element={<UserDashboard/>}/>
         <Route path='/userRentalPayment/:id' element={<PaymentUserRental/>}/>
         <Route path='/adminDashboard/viewCar/:id' element={<AdminRentalCarView/>}/>
+        <Route path="/adminDashboard/payments" element={<Payment/>}/>
+        <Route path="/userRentalPayment" element={<RentalCarPayment/>}/>
       </Routes>
     </div>
   );
