@@ -1,0 +1,13 @@
+.allrental-cars{
+    max-height: 500px !important;
+    overflow-y: scroll;
+    border-radius: 20px;
+    
+    }
+    .allused-cars{
+        max-height: 300px !important;
+        overflow-y: scroll;
+        border-radius: 20px;
+        
+        }
+    
