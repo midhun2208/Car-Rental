@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Pagination } from "react-bootstrap";
 import {
+  MDBBtn,
   MDBCard,
   MDBCardBody,
   MDBCardTitle,
@@ -88,7 +89,16 @@ function Payment() {
                     {" "}
                     <h5>Total Amount: {payment.totalcost} &#8377;</h5>
                   </MDBListGroupItem>
+                  <MDBListGroupItem>
+                    {" "}
+                    <h5>Damage_Status: </h5>
+                    <h6>No Damage Reported</h6>
+                  </MDBListGroupItem>
+                  <MDBListGroupItem>
+                    <MDBBtn>Reply</MDBBtn>
+                  </MDBListGroupItem>
                 </MDBListGroup>
+                
               </MDBCard>
             </Col>
           ))}

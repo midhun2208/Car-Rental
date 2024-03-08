@@ -107,7 +107,7 @@ function PaymentUserRental() {
     }
   };
 
-  if (carData === null) return <></>;
+  if (carData === null) return <h1>We Dont have a car</h1>;
 
   return (
     <div className="main-payment">
@@ -170,6 +170,7 @@ function PaymentUserRental() {
                       dateFormat="yyyy-MM-dd'T'HH:mm:ss"
                     />
                   </div>
+                  
                   <div className="mb-5">
                     <h3>Total Aomount: {totalAmount} &#8377;</h3>
                   </div>
