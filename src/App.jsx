@@ -13,6 +13,10 @@ import PaymentUserRental from "./Components/Users/Pages/PaymentUserRental/Paymen
 import AdminRentalCarView from "./Components/Admin/Pages/CarRentalCards/AdminRentalCarView";
 import Payment from "./Components/Admin/Pages/Payments/Payment";
 import RentalCarPayment from "./Components/Users/Pages/RentalCarPayment/RentalCarPayment";
+import ForUsedCars from "./Components/Users/Pages/DashBoardForUsedCars/ForUsedCars";
+import UsedCarsPayement from "./Components/Users/Pages/DashBoardForUsedCars/UsedCarsPayment/UsedCarsPayement";
+import UsedCarsPayment from "./Components/Admin/Pages/Payments/UsedCarsPayment";
+import UsedCarPayment from "./Components/Users/Pages/UsedCarPayment/UsedCarPayment";
 
 function App() {
   return (
@@ -28,13 +32,19 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/login/admin" element={<Login />} />
+        <Route path="/userRentalPayment" element={<RentalCarPayment/>}/>
+        <Route path="/" element={<UserDashboard/>}/>
+        <Route path="/UsedCar/userPayment" element={<UsedCarPayment/>}/>
+        <Route path="/UsedCars" element={<ForUsedCars/>}/>
+        <Route path="/UsedCars/Payment/:id" element={<UsedCarsPayement/>}/>
+        <Route path='/userRentalPayment/:id' element={<PaymentUserRental/>}/>
+
         <Route path="/adminDashboard" element={<AdminDashboard />} />
         <Route path="/admin/AddCar" element={<AddCarForm/>}/>
-        <Route path="/" element={<UserDashboard/>}/>
-        <Route path='/userRentalPayment/:id' element={<PaymentUserRental/>}/>
         <Route path='/adminDashboard/viewCar/:id' element={<AdminRentalCarView/>}/>
         <Route path="/adminDashboard/payments" element={<Payment/>}/>
-        <Route path="/userRentalPayment" element={<RentalCarPayment/>}/>
+        <Route path="/adminDashboard/usedcarpayments" element={<UsedCarsPayment/>}/>
+        
       </Routes>
     </div>
   );

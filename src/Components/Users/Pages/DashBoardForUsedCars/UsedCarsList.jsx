@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./UserCard.css";
 import { Col, Pagination } from "react-bootstrap";
-import {
-  MDBCardBody,
-  MDBListGroupItem,
-} from "mdb-react-ui-kit";
+import { MDBCardBody, MDBListGroupItem } from "mdb-react-ui-kit";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-
-function UserCards() {
+const UsedCarsList = () => {
   const [availableCars, setAvailableCars] = useState(null);
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
@@ -25,7 +20,7 @@ function UserCards() {
       navigate("/login");
     } else {
       const response = await axios.get(
-        `http://127.0.0.1:8000/customerapi/rentalvehicles/`,
+        `http://127.0.0.1:8000/customerapi/usedvehicles/`,
         {
           headers: {
             Authorization: `Token ${token}`,
@@ -36,12 +31,12 @@ function UserCards() {
       setAvailableCars(response.data);
     }
   };
-
+  console.log(availableCars);
   const handlePageChange = (page) => {
     setActivePage(page);
   };
 
-  if (availableCars === null ) return <></>;
+  if (availableCars === null) return <></>;
 
   const indexOfLastItem = activePage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -56,15 +51,11 @@ function UserCards() {
     setActivePage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
- 
-
   return (
     <>
       <div className=" cards-main container-fluid">
         <div className="text-black mt-2  row card-div">
-          <h2 className="userCard-heading text-center mt-5">
-            - Available Rental-Cars{" "}
-          </h2>
+          <h2 className="userCard-heading text-center mt-5">- Used-Cars </h2>
           {currentItems.map((item) => (
             <Col md={6} lg={3} className="mt-5 mb-2 p-4" key={item.id}>
               <div className="p-2 cards-cars">
@@ -86,16 +77,27 @@ function UserCards() {
                 </MDBListGroupItem>
                 <hr />
                 <MDBListGroupItem>
-                  <b>For 1Hr:</b> {item.amountperhr} &#8377;
+                  <b>Engine:</b> {item.type}
                 </MDBListGroupItem>
                 <hr />
                 <MDBListGroupItem>
-                  <b>Status:</b>{" "}
-                  <mark className="avalible-car ">{item.rental_status} </mark>
+                  <b>Transmission:</b> {item.transmission}
+                </MDBListGroupItem>
+                <hr />
+                <MDBListGroupItem>
+                  <b>Price:</b> {item.amount} &#8377;
+                </MDBListGroupItem>
+                <hr />
+                <MDBListGroupItem>
+                  <b>Car Description :</b>{" "}
+                  {item.description}
                 </MDBListGroupItem>
                 <MDBCardBody>
                   <hr />
-                 <Link to={`/userRentalPayment/${item.id}`}> <button className="btn btn-white mb-2">Book Now</button></Link>
+                  <Link to={`/UsedCars/Payment/${item.id}`}>
+                    {" "}
+                    <button className="btn btn-white mb-2">Buy Now</button>
+                  </Link>
                 </MDBCardBody>
               </div>
             </Col>
@@ -128,6 +130,6 @@ function UserCards() {
       </div>
     </>
   );
-}
+};
 
-export default UserCards;
+export default UsedCarsList;

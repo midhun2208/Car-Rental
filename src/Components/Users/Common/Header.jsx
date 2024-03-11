@@ -12,10 +12,15 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link,  useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import { message } from "antd";
-
+import {
+  MDBDropdown,
+  MDBDropdownMenu,
+  MDBDropdownToggle,
+  MDBDropdownItem,
+} from "mdb-react-ui-kit";
 
 // const pages = ["Products", "Pricing", "Blog"];
 
@@ -65,7 +70,7 @@ function Header() {
                 textDecoration: "none",
               }}
             >
-              LOGO
+              Car_rental
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -98,19 +103,23 @@ function Header() {
                 }}
               >
                 <MenuItem className="">
-                  <Link to={'/'}>
-                  <Typography textAlign="center " className="navbar-lists-in ">
-                    Home
-                  </Typography>
+                  <Link to={"/"}>
+                    <Typography
+                      textAlign="center "
+                      className="navbar-lists-in "
+                    >
+                      Home
+                    </Typography>
                   </Link>
                 </MenuItem>
                 <MenuItem>
                   <Typography textAlign="center">Listing</Typography>
                 </MenuItem>
-               <Link>
-               <MenuItem>
-                  <Typography textAlign="center">Payment_Rental</Typography>
-                </MenuItem></Link>
+                <Link>
+                  <MenuItem>
+                    <Typography textAlign="center">Payment_Rental</Typography>
+                  </MenuItem>
+                </Link>
                 <MenuItem>
                   <Typography textAlign="center">About</Typography>
                 </MenuItem>
@@ -139,36 +148,58 @@ function Header() {
               LOGO
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <Link to={'/'}><Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "White", display: "block" }}
-              >
-                <MenuItem>
-                  <Typography textAlign="center" className="navbar-lists">
-                    Home
-                  </Typography>
-                </MenuItem>
-              </Button></Link>
-              <a href="/#car-listing">
+              <Link to={"/"}>
                 <Button
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "White", display: "block" }}
                 >
                   <MenuItem>
-                    <Typography textAlign="center">Listing</Typography>
+                    <Typography textAlign="center" className="navbar-lists">
+                      Home
+                    </Typography>
                   </MenuItem>
                 </Button>
-              </a>
-              <Link to={'/userRentalPayment'}>
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "White", display: "block" }}
-              >
-                 
-               <MenuItem>
-                  <Typography textAlign="center">Rental-Payment</Typography>
-                </MenuItem>
-              </Button>
+              </Link>
+
+              <MDBDropdown>
+                <MDBDropdownToggle className="btn btn-dark mt-3 bg-black fs-6">
+                  Listing
+                </MDBDropdownToggle>
+                <MDBDropdownMenu>
+                  <Link to={"/"}>
+                    <MDBDropdownItem className="mx-4">
+                      Rental-Cars
+                    </MDBDropdownItem>
+                  </Link>
+                  <Link to={"/UsedCars"}>
+                    <a href="#UsedCarslists">
+                      <MDBDropdownItem className="mx-4">
+                        Used Cars
+                      </MDBDropdownItem>
+                    </a>
+                  </Link>
+                </MDBDropdownMenu>
+              </MDBDropdown>
+
+              <Link to={"/userRentalPayment"}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "White", display: "block" }}
+                >
+                  <MenuItem>
+                    <Typography textAlign="center">Rental-Payment</Typography>
+                  </MenuItem>
+                </Button>
+              </Link>
+              <Link to={"/UsedCar/userPayment"}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "White", display: "block" }}
+                >
+                  <MenuItem>
+                    <Typography textAlign="center">UsedCar-Payment</Typography>
+                  </MenuItem>
+                </Button>
               </Link>
               <Button
                 onClick={handleCloseNavMenu}
@@ -191,7 +222,7 @@ function Header() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar  />
                 </IconButton>
               </Tooltip>
               <Menu

@@ -7,15 +7,7 @@ import {
   MDBCardTitle,
   MDBListGroup,
   MDBListGroupItem,
-  MDBModal,
-  MDBModalDialog,
-  MDBModalContent,
-  MDBModalHeader,
-  MDBModalTitle,
-  MDBModalBody,
-  MDBModalFooter,
 } from "mdb-react-ui-kit";
-
 import axios from "axios";
 const paginationStyle = {
   marginTop: "20px", // Adjust the top margin as needed
@@ -23,10 +15,7 @@ const paginationStyle = {
   justifyContent: "center",
 };
 
-function Payment() {
-  const [staticModal, setStaticModal] = useState(false);
-
-  const toggleOpen = () => setStaticModal(!staticModal);
+const UsedCarsPayment = () => {
   const [rentalPayment, setRentalPayment] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage] = useState(8);
@@ -39,7 +28,7 @@ function Payment() {
   const getRentalPayment = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/adminapi/rentvehiclepayments/",
+        "http://127.0.0.1:8000/adminapi/vehiclepurchase/",
         {
           headers: {
             Authorization: `Token ${token}`,
@@ -60,19 +49,21 @@ function Payment() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   if (rentalPayment === null) return <></>;
-
+  console.log(currentCards);
   return (
     <>
       <Container>
         <Row>
-          <h2 className="text-center mt-4 text-dark">Rental Payment Details</h2>
+          <h2 className="text-center mt-4 text-dark">
+            Used Car Payment Details
+          </h2>
           {currentCards.map((payment) => (
             <Col lg={3} key={payment.id} className="my-3">
               <MDBCard className="border border-8 shadow-lg bg-black">
                 <MDBCardBody>
                   <MDBCardTitle>
                     <h3 className=" text-white">
-                      {payment.customer.firstname} {payment.customer.lastname}
+                      {payment.customer.customer_name}
                     </h3>
                   </MDBCardTitle>
                 </MDBCardBody>
@@ -85,11 +76,11 @@ function Payment() {
                   </MDBListGroupItem>
                   <MDBListGroupItem>
                     {" "}
-                    <h5>Colour: {payment.vehicle.colour}</h5>
+                    <h5>Phone: {payment.customer.phone}</h5>
                   </MDBListGroupItem>
                   <MDBListGroupItem>
                     {" "}
-                    <h5>From:</h5> {payment.rental_startdate}
+                    <h5>Purchase_Date:</h5> {payment.purchase_date}
                   </MDBListGroupItem>
                   <MDBListGroupItem>
                     {" "}
@@ -98,16 +89,9 @@ function Payment() {
                   </MDBListGroupItem>
                   <MDBListGroupItem>
                     {" "}
-                    <h5>Total Amount: {payment.totalcost} &#8377;</h5>
+                    <h5>Amount Paid: {payment.amount} &#8377;</h5>
                   </MDBListGroupItem>
-                  <MDBListGroupItem>
-                    {" "}
-                    <h5>Damage_Status: </h5>
-                    <h6>No Damage Reported</h6>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem>
-                    <MDBBtn onClick={toggleOpen}>Reply</MDBBtn>
-                  </MDBListGroupItem>
+
                 </MDBListGroup>
               </MDBCard>
             </Col>
@@ -133,34 +117,8 @@ function Payment() {
           <Col lg={4}></Col>
         </Row>
       </Container>
-      <MDBModal
-        staticBackdrop
-        tabIndex="-1"
-        open={staticModal}
-        setOpen={setStaticModal}
-      >
-        <MDBModalDialog>
-          <MDBModalContent>
-            <MDBModalHeader>
-              <MDBModalTitle>Modal title</MDBModalTitle>
-              <MDBBtn
-                className="btn-close"
-                color="none"
-                onClick={toggleOpen}
-              ></MDBBtn>
-            </MDBModalHeader>
-            <MDBModalBody>...</MDBModalBody>
-            <MDBModalFooter>
-              <MDBBtn color="secondary" onClick={toggleOpen}>
-                Close
-              </MDBBtn>
-              <MDBBtn>Understood</MDBBtn>
-            </MDBModalFooter>
-          </MDBModalContent>
-        </MDBModalDialog>
-      </MDBModal>
     </>
   );
-}
+};
 
-export default Payment;
+export default UsedCarsPayment;

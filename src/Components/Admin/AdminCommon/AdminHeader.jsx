@@ -9,8 +9,8 @@ function AdminHeader() {
 
   const Singout = (e) => {
     e.preventDefault();
-    localStorage.clear()
-    message.error("Admin signout")
+    localStorage.clear();
+    message.error("Admin signout");
     navigate("/login");
   };
 
@@ -27,8 +27,8 @@ function AdminHeader() {
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               <div className="admin-options mx-4">
-              <Link to={"/adminDashboard"}>
-                <h5 className="text-white">Listing</h5>
+                <Link to={"/adminDashboard"}>
+                  <h5 className="text-white">Listing</h5>
                 </Link>
               </div>
             </Navbar.Text>
@@ -42,11 +42,17 @@ function AdminHeader() {
             <Navbar.Text>
               <div className="admin-options mx-4">
                 <Link to={"/adminDashboard/payments"}>
-                  <h5 className="text-white">Payments</h5>
+                  <h5 className="text-white">Rental_Payments</h5>
                 </Link>
               </div>
             </Navbar.Text>
-            
+            <Navbar.Text>
+              <div className="admin-options me-3 ">
+                <Link to={"/adminDashboard/usedcarpayments"}>
+                  <h5 className="text-white ">UsedCar_Payments</h5>
+                </Link>
+              </div>
+            </Navbar.Text>
 
             <Navbar.Text className="admin-options">
               <div className="btn btn-danger" onClick={Singout}>

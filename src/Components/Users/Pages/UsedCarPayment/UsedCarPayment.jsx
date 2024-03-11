@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Pagination } from "react-bootstrap";
-import { Button, Modal } from "antd";
 import {
   MDBCard,
   MDBCardImage,
@@ -9,7 +8,7 @@ import {
 } from "mdb-react-ui-kit";
 import axios from "axios";
 
-function RentalCarPayment() {
+const UsedCarPayment = () => {
   const [activeItem, setActiveItem] = useState(0);
 
   const handlePageChange = (newPage) => {
@@ -17,28 +16,14 @@ function RentalCarPayment() {
   };
   const [rentalPayment, setRentalPayment] = useState(null);
   const token = localStorage.getItem("token");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   useEffect(() => {
     getRentalPayment();
   }, []);
-
   const getRentalPayment = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/customerapi/rentaltransactions/",
+        "http://127.0.0.1:8000/customerapi/usedvehicles/",
         {
           headers: {
             Authorization: `Token ${token}`,
@@ -51,13 +36,18 @@ function RentalCarPayment() {
       console.log(error);
     }
   };
-  if (rentalPayment === null) return <h1 className="text-black text-center p-4">You Dont Have Purchase.......</h1>;
+  if (rentalPayment === null)
+    return (
+      <h1 className="text-black text-center p-4">
+        You Dont Have Purchase Till Now.......
+      </h1>
+    );
   return (
-    <>
+    <div>
       <Container>
         <Row>
           <h2 className="text-center mt-4 mb-3 text-dark">
-            Your Rental Payment Details
+            Your UsedCar Payment Details
           </h2>
           {rentalPayment.length > 0 && (
             <>
@@ -66,49 +56,49 @@ function RentalCarPayment() {
                 <MDBCard className="">
                   <MDBCardImage
                     position="top"
-                    style={{ height: "200px" }}
+                    style={{ height: "300px" }}
                     alt="..."
-                    src={rentalPayment[activeItem]?.vehicle?.image}
+                    src={`http://localhost:8000/${rentalPayment[activeItem]?.image}`}
                   />
                   <MDBListGroup flush>
                     <MDBListGroupItem>
                       <h4 className="text-black">
-                        Car Make: {rentalPayment[activeItem].vehicle.model}
+                        {rentalPayment[activeItem]?.make} :{" "}
+                        {rentalPayment[activeItem]?.model}
                       </h4>
                     </MDBListGroupItem>
                     <MDBListGroupItem>
                       <h4 className="text-black">
-                        Reg_NO : {rentalPayment[activeItem].vehicle.reg_number}
+                        Reg_NO : {rentalPayment[activeItem]?.reg_number}
                       </h4>
                     </MDBListGroupItem>
+
                     <MDBListGroupItem>
                       <h5 className="text-black">
-                        Colour: {rentalPayment[activeItem].vehicle.colour}
+                        Engine: {rentalPayment[activeItem]?.type}{" "}
                       </h5>
                     </MDBListGroupItem>
                     <MDBListGroupItem>
-                      <h6 className="text-black">From:</h6>{" "}
-                      {rentalPayment[activeItem].rental_startdate}
-                    </MDBListGroupItem>
-                    <MDBListGroupItem>
-                      <h6 className="text-black">To: </h6>
-                      {rentalPayment[activeItem].rental_enddate}
+                      <h5 className="text-black">
+                        Type: {rentalPayment[activeItem]?.transmission}
+                      </h5>{" "}
                     </MDBListGroupItem>
                     <MDBListGroupItem>
                       <h5 className="text-black">
-                        Total Amount: {rentalPayment[activeItem].totalcost}{" "}
+                        Colour: {rentalPayment[activeItem]?.colour}
+                      </h5>
+                    </MDBListGroupItem>
+                    <MDBListGroupItem>
+                      <h5 className="text-black">
+                        Year: {rentalPayment[activeItem]?.year}
+                      </h5>
+                    </MDBListGroupItem>
+
+                    <MDBListGroupItem>
+                      <h5 className="text-black">
+                        Total Amount: {rentalPayment[activeItem]?.amount}{" "}
                         &#8377;
                       </h5>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem>
-                      <h5 className="text-black">Damage Status: </h5>
-                      <h6>{rentalPayment[activeItem].reprot_details}</h6>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem>
-                      <h6 className="text-black">Report Any Damage </h6>
-                      <button className="btn btn-danger" onClick={showModal}>
-                        Report
-                      </button>
                     </MDBListGroupItem>
                   </MDBListGroup>
                 </MDBCard>
@@ -135,18 +125,8 @@ function RentalCarPayment() {
           <Col lg={1}></Col>
         </Row>
       </Container>
-      <Modal
-        title="Basic Modal"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
-    </>
+    </div>
   );
-}
+};
 
-export default RentalCarPayment;
+export default UsedCarPayment;

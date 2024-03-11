@@ -50,13 +50,16 @@ function CarCards() {
     }
   }
 
+
   if (carsData === null ||usedCarsData === null)
+  
     return (
       <div>
         <h1 className="text-center p-5">Loading....</h1>
       </div>
+      
     );
-
+    const filterUsedCars = usedCarsData.filter((i)=>i.purchase_status !== "sold")
   return (
     <>
       <Container fluid>
@@ -117,7 +120,7 @@ function CarCards() {
                   </tr>
                 </MDBTableHead>
                 <MDBTableBody>
-                  {usedCarsData.map((item, index) => (
+                  {filterUsedCars.map((item, index) => (
                     <tr key={item.id}>
                       <th scope="row">{index + 1}</th>
                       <td>{item.model}</td>

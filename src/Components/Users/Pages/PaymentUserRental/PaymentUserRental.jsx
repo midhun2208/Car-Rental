@@ -57,7 +57,9 @@ function PaymentUserRental() {
           },
         }
       );
+
       setCarData(response.data);
+      console.log(carData);
     }
   };
 

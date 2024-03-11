@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import "./UserDashboard.css";
+import React from "react";
+import "./ForUsedCars.css";
 import { Container, TextField } from "@mui/material";
 import { Col, Row } from "react-bootstrap";
-import DatePicker from "react-datepicker";
-import { MDBBtn } from "mdb-react-ui-kit";
-import "react-datepicker/dist/react-datepicker.css";
 import UserCards from "../UserCards/UserCards";
-function UserDashboard() {
-  const [startDate, setStartDate] = useState(new Date());
+import UsedCarsList from "./UsedCarsList";
+
+function ForUsedCars() {
   return (
-    <>
+    <div>
       <div className="container-home-user">
         <div className="image-home-user">
           <div className="container-fluid">
@@ -95,12 +93,12 @@ function UserDashboard() {
       </Container>
 
       <Col lg={12}>
-        <section id="/car-listing">
-          <UserCards id={"#car-listing"} />
+        <section id="/UsedCars-list">
+          <UsedCarsList />
         </section>
       </Col>
-    </>
+    </div>
   );
 }
 
-export default UserDashboard;
+export default ForUsedCars;
