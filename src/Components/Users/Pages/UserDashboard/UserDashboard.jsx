@@ -2,22 +2,29 @@ import React, { useState } from "react";
 import "./UserDashboard.css";
 import { Container, TextField } from "@mui/material";
 import { Col, Row } from "react-bootstrap";
-import DatePicker from "react-datepicker";
-import { MDBBtn } from "mdb-react-ui-kit";
 import "react-datepicker/dist/react-datepicker.css";
 import UserCards from "../UserCards/UserCards";
+import WhyChooseUs from "../About/WhyChooseUs";
 function UserDashboard() {
-  const [startDate, setStartDate] = useState(new Date());
+  // const [startDate, setStartDate] = useState(new Date());
   return (
     <>
-      <div className="container-home-user">
+      <div className="container-home-user ">
         <div className="image-home-user">
           <div className="container-fluid">
             <Row style={{ width: "100%", height: "90%" }}>
-              <Col lg={7} md={12} className="p-5 " style={{ height: "80vh" }}>
-                <div className="heading-car-div ">
-                  <h1 className=" text-white  heading-car-rental ">
-                    Welcome to CarRental
+              <Col
+                lg={7}
+                md={12}
+                className="p-5 mt-5"
+                style={{ height: "80vh" }}
+              >
+                <div className="heading-car-div">
+                  <h1
+                    className=" text-white  heading-car-rental "
+                    style={{ fontSize: "80px" }}
+                  >
+                    Welcome to WheelsOnDemand
                   </h1>
                   <br />
                   <h2 className=" text-start">
@@ -99,6 +106,7 @@ function UserDashboard() {
           <UserCards id={"#car-listing"} />
         </section>
       </Col>
+      <WhyChooseUs/>
     </>
   );
 }

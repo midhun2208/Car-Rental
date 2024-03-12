@@ -52,7 +52,7 @@ function Header() {
   return (
     <>
       <AppBar position="sticky" className="navbar-user">
-        <Container maxWidth="xl">
+        <Container fluid maxWidth="3xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography
@@ -70,7 +70,7 @@ function Header() {
                 textDecoration: "none",
               }}
             >
-              Car_rental
+              WheelsOnDemand
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

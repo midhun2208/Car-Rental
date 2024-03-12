@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./UserCard.css";
 import { Col, Pagination } from "react-bootstrap";
-import {
-  MDBCardBody,
-  MDBListGroupItem,
-} from "mdb-react-ui-kit";
+import { MDBCardBody, MDBListGroupItem } from "mdb-react-ui-kit";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-
 
 function UserCards() {
   const [availableCars, setAvailableCars] = useState(null);
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
-  const itemsPerPage = 4;
+  const itemsPerPage = 8;
 
   useEffect(() => {
     getAvailableCars();
@@ -41,7 +37,7 @@ function UserCards() {
     setActivePage(page);
   };
 
-  if (availableCars === null ) return <></>;
+  if (availableCars === null) return <></>;
 
   const indexOfLastItem = activePage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -55,8 +51,6 @@ function UserCards() {
   const handleNextPage = () => {
     setActivePage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
-
- 
 
   return (
     <>
@@ -95,12 +89,15 @@ function UserCards() {
                 </MDBListGroupItem>
                 <MDBCardBody>
                   <hr />
-                 <Link to={`/userRentalPayment/${item.id}`}> <button className="btn btn-white mb-2">Book Now</button></Link>
+                  <Link to={`/userRentalPayment/${item.id}`}>
+                    {" "}
+                    <button className="btn btn-white mb-2">Book Now</button>
+                  </Link>
                 </MDBCardBody>
               </div>
             </Col>
           ))}
-          <Pagination className="justify-content-center ">
+          <Pagination className="justify-content-center my-4">
             <Pagination.Prev
               className=" "
               style={{ backgroundColor: "rgba(255, 255, 255, 0.553)" }}

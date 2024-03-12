@@ -4,6 +4,7 @@ import { Container, TextField } from "@mui/material";
 import { Col, Row } from "react-bootstrap";
 import UserCards from "../UserCards/UserCards";
 import UsedCarsList from "./UsedCarsList";
+import WhyChooseUs from "../About/WhyChooseUs";
 
 function ForUsedCars() {
   return (
@@ -12,10 +13,13 @@ function ForUsedCars() {
         <div className="image-home-user">
           <div className="container-fluid">
             <Row style={{ width: "100%", height: "90%" }}>
-              <Col lg={7} md={12} className="p-5 " style={{ height: "80vh" }}>
+              <Col lg={7} md={12} className="p-5 mt-5 " style={{ height: "80vh" }}>
                 <div className="heading-car-div ">
-                  <h1 className=" text-white  heading-car-rental ">
-                    Welcome to CarRental
+                  <h1
+                    className=" text-white  heading-car-rental "
+                    style={{ fontSize: "80px" }}
+                  >
+                    Welcome to WheelsOnDemand
                   </h1>
                   <br />
                   <h2 className=" text-start">
@@ -67,19 +71,7 @@ function ForUsedCars() {
                       />
                     </div>
                   </div>
-                  {/* <div className="selection-bar">
-                        <h4>
-                          to{" "}
-                          <span>
-                            {" "}
-                            <DatePicker
-                              selected={startDate}
-                              onChange={(date) => setStartDate(date)}
-                              className="date-picker"
-                            />
-                          </span>
-                        </h4>
-                      </div> */}
+                 
                   <div className="button-search">
                     <button className="mt-1 mx-5  btn btn-primary btnn-search">
                       <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
@@ -97,7 +89,9 @@ function ForUsedCars() {
           <UsedCarsList />
         </section>
       </Col>
+      <WhyChooseUs/>
     </div>
+   
   );
 }
 
