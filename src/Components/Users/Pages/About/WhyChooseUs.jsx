@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import "./hi.css";
+import AOS from "aos";
 
 const WhyChooseUs = () => {
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  });
   return (
     <>
       <Container fluid className="  div-container">
         <Row className="text-center row-conatinerdiv p-5">
-          <h1 className="text-center clas text-black ">Why Choose Us</h1>
+          <h1 className="text-center clas text-black " data-aos="fade-right">
+            Why Choose Us
+          </h1>
           <Col lg={2}></Col>
           <Col lg={8}>
-            <h4 className="text-center text-aling-justify">
+            <h4
+              className="text-center text-aling-justify mt-4"
+              data-aos="fade-right"
+            >
               Choose WeelsOnDemand for an unparalleled experience in car
               rentals. Our extensive fleet offers the latest models for every
               occasion. Enjoy competitive prices, hassle-free bookings, and
@@ -22,12 +30,12 @@ const WhyChooseUs = () => {
           <Col lg={2}></Col>
         </Row>
         {/* Next Row */}
-        <Row className="pt-5">
+        <Row className="pt-5" data-aos="fade-right">
           <Col lg={2}></Col>
           <Col lg={5}>
             <div className="d-flex ">
               <div className="">
-                <div className="p-5">
+                <div className="p-4">
                   <button className="btn btn-black p-5 ">
                     <i class="fa-solid fa-phone fa-2xl"></i>
                   </button>
@@ -41,7 +49,7 @@ const WhyChooseUs = () => {
           <Col lg={4}>
             <div className="d-flex ">
               <div className="">
-                <div className="p-5">
+                <div className="p-4">
                   <button className="btn btn-black p-5 ">
                     <i class="fa-solid fa-indian-rupee-sign fa-2xl"></i>
                   </button>
@@ -55,12 +63,12 @@ const WhyChooseUs = () => {
         </Row>
 
         {/* next Row Of y choose us */}
-        <Row className="pt-5 pb-5 mb-3">
+        <Row className="pt-5 pb-5 " data-aos="fade-right">
           <Col lg={2}></Col>
           <Col lg={5}>
             <div className="d-flex ">
               <div className="">
-                <div className="p-5">
+                <div className="p-4">
                   <button className="btn btn-black p-5 ">
                     <i class="fa-solid fa-id-card fa-2xl"></i>
                   </button>
@@ -75,7 +83,7 @@ const WhyChooseUs = () => {
           <Col lg={5}>
             <div className="d-flex ">
               <div className="">
-                <div className="p-5">
+                <div className="p-4 mb-4">
                   <button className="btn btn-black p-5 ">
                     <i class="fa-solid fa-ban fa-2xl"></i>
                   </button>
@@ -86,7 +94,6 @@ const WhyChooseUs = () => {
               </div>
             </div>
           </Col>
-          <Col lg={2}></Col>
         </Row>
       </Container>
     </>

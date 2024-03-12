@@ -1,13 +1,15 @@
 .div-container{
     background-color: rgba(0, 0, 0, 0.126);
   
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 }
 .headingg{
     color: rgba(0, 0, 0, 0.807)
 }
 .card1{
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.486) 1.95px 1.95px 2.6px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.049);
+    color: rgb(0, 0, 0);
     
 }

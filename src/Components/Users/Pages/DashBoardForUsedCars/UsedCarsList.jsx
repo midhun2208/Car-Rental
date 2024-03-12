@@ -3,6 +3,8 @@ import { Col, Pagination } from "react-bootstrap";
 import { MDBCardBody, MDBListGroupItem } from "mdb-react-ui-kit";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const UsedCarsList = () => {
   const [availableCars, setAvailableCars] = useState(null);
@@ -11,6 +13,7 @@ const UsedCarsList = () => {
   const itemsPerPage = 4;
 
   useEffect(() => {
+    AOS.init({ duration: 1500 });
     getAvailableCars();
   }, []);
 
@@ -54,11 +57,17 @@ const UsedCarsList = () => {
   return (
     <>
       <div className=" cards-main container-fluid">
-        <div className="text-black mt-2  row card-div">
-          <h2 className="userCard-heading text-center mt-5">- Used-Cars </h2>
+        <div className="text-black   row card-div">
+          <h1 className="userCard-heading text-center mt-5" data-aos="fade-right"> -Used-Cars </h1>
           {currentItems.map((item) => (
-            <Col md={6} lg={3} className="mt-5 mb-2 p-4" key={item.id}>
-              <div className="p-2 cards-cars">
+            <Col
+              md={6}
+              lg={3}
+              className="mt-5 mb-2 p-4"
+              
+              key={item.id}
+            >
+              <div className="p-2 cards-cars" data-aos="zoom-in">
                 {/* Your existing card content */}
                 <img
                   position="top"
@@ -89,8 +98,7 @@ const UsedCarsList = () => {
                 </MDBListGroupItem>
                 <hr />
                 <MDBListGroupItem>
-                  <b>Car Description :</b>{" "}
-                  {item.description}
+                  <b>Car Description :</b> {item.description}
                 </MDBListGroupItem>
                 <MDBCardBody>
                   <hr />

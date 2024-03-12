@@ -201,7 +201,7 @@ function Header() {
                   </MenuItem>
                 </Button>
               </Link>
-              <Button
+              {/* <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "White", display: "block" }}
               >
@@ -216,7 +216,7 @@ function Header() {
                 <MenuItem>
                   <Typography textAlign="center">Contact</Typography>
                 </MenuItem>
-              </Button>
+              </Button> */}
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>

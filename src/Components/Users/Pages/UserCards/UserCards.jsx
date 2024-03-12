@@ -4,6 +4,7 @@ import { Col, Pagination } from "react-bootstrap";
 import { MDBCardBody, MDBListGroupItem } from "mdb-react-ui-kit";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import AOS from "aos";
 
 function UserCards() {
   const [availableCars, setAvailableCars] = useState(null);
@@ -13,6 +14,7 @@ function UserCards() {
 
   useEffect(() => {
     getAvailableCars();
+    AOS.init({ duration: 1000 });
   }, []);
 
   const getAvailableCars = async () => {
@@ -55,12 +57,19 @@ function UserCards() {
   return (
     <>
       <div className=" cards-main container-fluid">
-        <div className="text-black mt-2  row card-div">
-          <h2 className="userCard-heading text-center mt-5">
+        <div className="text-black  row card-div">
+          <h2 className="userCard-heading text-center mt-5" data-aos="fade-right">
             - Available Rental-Cars{" "}
+            
           </h2>
           {currentItems.map((item) => (
-            <Col md={6} lg={3} className="mt-5 mb-2 p-4" key={item.id}>
+            <Col
+              md={6}
+              lg={3}
+              className="mt-5 mb-2 p-4"
+              key={item.id}
+              data-aos="zoom-in"
+            >
               <div className="p-2 cards-cars">
                 {/* Your existing card content */}
                 <img

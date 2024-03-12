@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ForUsedCars.css";
 import { Container, TextField } from "@mui/material";
 import { Col, Row } from "react-bootstrap";
@@ -6,25 +6,35 @@ import UserCards from "../UserCards/UserCards";
 import UsedCarsList from "./UsedCarsList";
 import WhyChooseUs from "../About/WhyChooseUs";
 import OurAchivements from "../About/OurAchivements";
+import Aos from "aos";
 
 
 function ForUsedCars() {
+  useEffect(()=>{
+    Aos.init({duration:2000})
+  })
   return (
     <div>
       <div className="container-home-user">
         <div className="image-home-user">
           <div className="container-fluid">
-            <Row style={{ width: "100%", height: "90%" }}>
-              <Col lg={7} md={12} className="p-5 mt-5 " style={{ height: "80vh" }}>
-                <div className="heading-car-div ">
+          <Row style={{ width: "100%", height: "90%" }}>
+              <Col
+                lg={7}
+                md={12}
+                className="p-5 mt-5"
+                style={{ height: "80vh" }}
+              >
+                <div className="heading-car-div">
                   <h1
                     className=" text-white  heading-car-rental "
                     style={{ fontSize: "80px" }}
+                    data-aos="zoom"
                   >
                     Welcome to WheelsOnDemand
                   </h1>
                   <br />
-                  <h2 className=" text-start">
+                  <h2 className=" text-start" data-aos="zoom">
                     -Drive Your Dreams: Unleash the Ultimate Journey with Our
                     &nbsp;
                     <span style={{ color: "white" }}>
@@ -34,7 +44,7 @@ function ForUsedCars() {
                   </h2>
                 </div>
               </Col>
-              <Col lg={5} md={12} className="mr-5 ">
+              <Col lg={5} md={12} className="mr-5 " data-aos="zoom">
                 <div className="img-home">
                   <img
                     src="https://i.postimg.cc/Njs3xTz6/nissan-offer.png"
@@ -54,7 +64,7 @@ function ForUsedCars() {
         </div>
       </div>
       <Container >
-        <Row>
+        {/* <Row>
           <Col lg={2}></Col>
           <Col lg={8} md={12}>
             <div className="Search-bar">
@@ -83,7 +93,7 @@ function ForUsedCars() {
               </div>
             </div>
           </Col>
-        </Row>
+        </Row> */}
       </Container>
 
       <Col lg={12}>
