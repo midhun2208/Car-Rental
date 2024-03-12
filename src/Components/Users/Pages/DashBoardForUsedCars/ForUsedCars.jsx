@@ -5,6 +5,8 @@ import { Col, Row } from "react-bootstrap";
 import UserCards from "../UserCards/UserCards";
 import UsedCarsList from "./UsedCarsList";
 import WhyChooseUs from "../About/WhyChooseUs";
+import OurAchivements from "../About/OurAchivements";
+
 
 function ForUsedCars() {
   return (
@@ -51,7 +53,7 @@ function ForUsedCars() {
           {/* Selection bar */}
         </div>
       </div>
-      <Container>
+      <Container >
         <Row>
           <Col lg={2}></Col>
           <Col lg={8} md={12}>
@@ -90,6 +92,7 @@ function ForUsedCars() {
         </section>
       </Col>
       <WhyChooseUs/>
+      <OurAchivements/>
     </div>
    
   );

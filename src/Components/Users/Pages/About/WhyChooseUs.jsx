@@ -5,7 +5,7 @@ import "./hi.css";
 const WhyChooseUs = () => {
   return (
     <>
-      <Container fluid className=" mb-5 div-container">
+      <Container fluid className="  div-container">
         <Row className="text-center row-conatinerdiv p-5">
           <h1 className="text-center clas text-black ">Why Choose Us</h1>
           <Col lg={2}></Col>

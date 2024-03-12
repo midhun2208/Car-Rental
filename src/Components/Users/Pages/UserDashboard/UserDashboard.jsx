@@ -5,6 +5,7 @@ import { Col, Row } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import UserCards from "../UserCards/UserCards";
 import WhyChooseUs from "../About/WhyChooseUs";
+import OurAchivements from "../About/OurAchivements";
 function UserDashboard() {
   // const [startDate, setStartDate] = useState(new Date());
   return (
@@ -107,6 +108,7 @@ function UserDashboard() {
         </section>
       </Col>
       <WhyChooseUs/>
+      <OurAchivements/>
     </>
   );
 }

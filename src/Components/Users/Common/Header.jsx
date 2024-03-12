@@ -52,7 +52,7 @@ function Header() {
   return (
     <>
       <AppBar position="sticky" className="navbar-user">
-        <Container fluid maxWidth="3xl">
+        <Container fluid maxWidth="3xl" >
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography
