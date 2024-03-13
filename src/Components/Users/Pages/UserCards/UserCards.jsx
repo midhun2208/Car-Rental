@@ -58,10 +58,10 @@ function UserCards() {
     <>
       <div className=" cards-main container-fluid">
         <div className="text-black  row card-div">
-          <h2 className="userCard-heading text-center mt-5" data-aos="fade-right">
+          <h1 className="userCard-heading text-center mt-5" data-aos="fade-right">
             - Available Rental-Cars{" "}
             
-          </h2>
+          </h1>
           {currentItems.map((item) => (
             <Col
               md={6}

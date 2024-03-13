@@ -6,12 +6,35 @@ import {
   MDBCardImage,
   MDBListGroup,
   MDBListGroupItem,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+  MDBBtn,
+  MDBRipple,
+  MDBInput,
+  MDBTextArea,
+  MDBFile,
 } from "mdb-react-ui-kit";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function RentalCarPayment() {
   const [activeItem, setActiveItem] = useState(0);
+  const [photo, setPhoto] = useState(null);
+  const [modalData, setModalData] = useState(null);
 
+  const [report, setReport] = useState({
+    description: "",
+    image: "",
+  });
+  const HandelImgChange = (e) => {
+    const file = e.target.files[0];
+    setPhoto(file);
+    setReport((prevDetails) => ({
+      ...prevDetails,
+      image: file,
+    }));
+  };
   const handlePageChange = (newPage) => {
     setActiveItem(newPage - 1);
   };
@@ -23,8 +46,30 @@ function RentalCarPayment() {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
+  const handleOk = async() => {
+    const formData = new FormData();
+    formData.append("image", report.image);
+    formData.append("description",report.description)
+    const id = modalData.id
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/customerapi/rentaltransactions/${id}/report_add/`,formData,{
+        headers:{
+          Authorization:`Token ${token}`
+        }
+      })
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Report Sent Succesfully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      getRentalPayment()
+       setIsModalOpen(false);
+    } catch (error) {
+      
+    }
+   
   };
 
   const handleCancel = () => {
@@ -34,6 +79,25 @@ function RentalCarPayment() {
   useEffect(() => {
     getRentalPayment();
   }, []);
+
+  const handleModal = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/customerapi/rentaltransactions/${id}/`,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+        setModalData(response.data)
+        showModal();
+      
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getRentalPayment = async () => {
     try {
@@ -51,7 +115,12 @@ function RentalCarPayment() {
       console.log(error);
     }
   };
-  if (rentalPayment === null) return <h1 className="text-black text-center p-4">You Dont Have Purchase.......</h1>;
+  if (rentalPayment === null)
+    return (
+      <h1 className="text-black text-center p-4">
+        You Dont Have Purchase.......
+      </h1>
+    );
   return (
     <>
       <Container>
@@ -102,14 +171,34 @@ function RentalCarPayment() {
                     </MDBListGroupItem>
                     <MDBListGroupItem>
                       <h5 className="text-black">Damage Status: </h5>
-                      <h6>{rentalPayment[activeItem].reprot_details}</h6>
+                      <h6>
+                        {rentalPayment[activeItem]?.report_detail?.description
+                          ? "Damage Reported"
+                          : "No Damage Reported Till Now"}
+                      </h6>
                     </MDBListGroupItem>
-                    <MDBListGroupItem>
-                      <h6 className="text-black">Report Any Damage </h6>
-                      <button className="btn btn-danger" onClick={showModal}>
-                        Report
-                      </button>
-                    </MDBListGroupItem>
+                    {rentalPayment[activeItem]?.report_detail?.description ==
+                    null ? (
+                      <MDBListGroupItem>
+                        <h6 className="text-black">Report Any Damage </h6>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() =>
+                            handleModal(rentalPayment[activeItem]?.id)
+                          }
+                        >
+                          Report
+                        </button>
+                      </MDBListGroupItem>
+                    ) : null}
+                    \
+                    {rentalPayment[activeItem]?.report_detail?.amount !=
+                    null ? (
+                      <MDBListGroupItem>
+                        <h6 className="text-black">Damage Payment </h6>
+                        <button className="btn btn-success">Proceed</button>
+                      </MDBListGroupItem>
+                    ) : null}
                   </MDBListGroup>
                 </MDBCard>
               </Col>
@@ -136,14 +225,42 @@ function RentalCarPayment() {
         </Row>
       </Container>
       <Modal
-        title="Basic Modal"
+        title="Report A Damage"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <MDBCard>
+          <MDBRipple
+            rippleColor="light"
+            rippleTag="div"
+            className="bg-image hover-overlay"
+          >
+            <a>
+              <div
+                className="mask"
+                style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}
+              ></div>
+            </a>
+          </MDBRipple>
+          <MDBCardBody>
+            <MDBCardText>
+              <MDBTextArea
+                label="Description message"
+                required
+                onChange={(e) =>
+                  setReport({ ...report, description: e.target.value })
+                }
+              />
+            </MDBCardText>
+            <MDBFile
+              required
+              label="Add image of Damaged part"
+              id="customFile"
+              onChange={HandelImgChange}
+            />
+          </MDBCardBody>
+        </MDBCard>
       </Modal>
     </>
   );

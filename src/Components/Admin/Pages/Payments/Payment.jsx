@@ -51,7 +51,7 @@ function Payment() {
       console.log(error);
     }
   };
-
+console.log(rentalPayment);
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards =
