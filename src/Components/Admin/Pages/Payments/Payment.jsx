@@ -14,6 +14,7 @@ import {
   MDBModalTitle,
   MDBModalBody,
   MDBModalFooter,
+  MDBInput,
 } from "mdb-react-ui-kit";
 
 import axios from "axios";
@@ -25,7 +26,7 @@ const paginationStyle = {
 
 function Payment() {
   const [staticModal, setStaticModal] = useState(false);
-
+  const [resData, setresData] = useState(null);
   const toggleOpen = () => setStaticModal(!staticModal);
   const [rentalPayment, setRentalPayment] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -51,7 +52,22 @@ function Payment() {
       console.log(error);
     }
   };
-console.log(rentalPayment);
+  const handleResponse = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/adminapi/rentvehiclepayments/${id}/`,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      setresData(response.data);
+      toggleOpen();
+    } catch (error) {}
+  };
+
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards =
@@ -60,7 +76,6 @@ console.log(rentalPayment);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   if (rentalPayment === null) return <></>;
-
   return (
     <>
       <Container>
@@ -72,24 +87,25 @@ console.log(rentalPayment);
                 <MDBCardBody>
                   <MDBCardTitle>
                     <h3 className=" text-white">
-                      {payment.customer.firstname} {payment.customer.lastname}
+                      {payment?.customer?.firstname}{" "}
+                      {payment?.customer?.lastname}
                     </h3>
                   </MDBCardTitle>
                 </MDBCardBody>
                 <MDBListGroup flush>
                   <MDBListGroupItem>
-                    <h4>Car Make: {payment.vehicle.model}</h4>
+                    <h4>Car Make: {payment?.vehicle.model}</h4>
                   </MDBListGroupItem>
                   <MDBListGroupItem>
-                    <h5>Reg_NO : {payment.vehicle.reg_number}</h5>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem>
-                    {" "}
-                    <h5>Colour: {payment.vehicle.colour}</h5>
+                    <h5>Reg_NO : {payment?.vehicle.reg_number}</h5>
                   </MDBListGroupItem>
                   <MDBListGroupItem>
                     {" "}
-                    <h5>From:</h5> {payment.rental_startdate}
+                    <h5>Colour: {payment?.vehicle.colour}</h5>
+                  </MDBListGroupItem>
+                  <MDBListGroupItem>
+                    {" "}
+                    <h5>From:</h5> {payment?.rental_startdate}
                   </MDBListGroupItem>
                   <MDBListGroupItem>
                     {" "}
@@ -98,16 +114,24 @@ console.log(rentalPayment);
                   </MDBListGroupItem>
                   <MDBListGroupItem>
                     {" "}
-                    <h5>Total Amount: {payment.totalcost} &#8377;</h5>
+                    <h5>Total Amount: {payment?.totalcost} &#8377;</h5>
                   </MDBListGroupItem>
                   <MDBListGroupItem>
                     {" "}
                     <h5>Damage_Status: </h5>
-                    <h6>No Damage Reported</h6>
+                    <h6>
+                      {payment?.rental_report.description
+                        ? payment?.rental_report.description
+                        : "No Damage Reported"}
+                    </h6>
                   </MDBListGroupItem>
-                  <MDBListGroupItem>
-                    <MDBBtn onClick={toggleOpen}>Reply</MDBBtn>
-                  </MDBListGroupItem>
+                  {payment?.rental_report != null ? (
+                    <MDBListGroupItem>
+                      <MDBBtn onClick={() => handleResponse(payment.id)}>
+                        Reply
+                      </MDBBtn>
+                    </MDBListGroupItem>
+                  ) : null}
                 </MDBListGroup>
               </MDBCard>
             </Col>
@@ -142,19 +166,35 @@ console.log(rentalPayment);
         <MDBModalDialog>
           <MDBModalContent>
             <MDBModalHeader>
-              <MDBModalTitle>Modal title</MDBModalTitle>
+              <MDBModalTitle>Send Response</MDBModalTitle>
               <MDBBtn
                 className="btn-close"
                 color="none"
                 onClick={toggleOpen}
               ></MDBBtn>
             </MDBModalHeader>
-            <MDBModalBody>...</MDBModalBody>
+            <MDBModalBody className="text-center">
+              <img
+                src={`http://127.0.0.1:8000${resData?.rental_report?.damage_image}`}
+                alt="Damage_Image"
+              />
+              <MDBListGroupItem className="text-center mt-4 ">
+                <h5 className="mx-3 txt-center">
+                  Description: {resData?.rental_report?.description}
+                </h5>
+              </MDBListGroupItem>
+              <MDBListGroupItem>
+                <h6 className="text-start mx-2 mt-4">
+                  Enter the Componesation
+                </h6>
+                <MDBInput label="Enter The Amount" />
+              </MDBListGroupItem>
+            </MDBModalBody>
             <MDBModalFooter>
               <MDBBtn color="secondary" onClick={toggleOpen}>
                 Close
               </MDBBtn>
-              <MDBBtn>Understood</MDBBtn>
+              <MDBBtn>Send</MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>

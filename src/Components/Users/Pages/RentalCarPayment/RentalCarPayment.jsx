@@ -19,6 +19,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function RentalCarPayment() {
+
   const [activeItem, setActiveItem] = useState(0);
   const [photo, setPhoto] = useState(null);
   const [modalData, setModalData] = useState(null);
@@ -46,17 +47,21 @@ function RentalCarPayment() {
     setIsModalOpen(true);
   };
 
-  const handleOk = async() => {
+  const handleOk = async () => {
     const formData = new FormData();
     formData.append("image", report.image);
-    formData.append("description",report.description)
-    const id = modalData.id
+    formData.append("description", report.description);
+    const id = modalData.id;
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/customerapi/rentaltransactions/${id}/report_add/`,formData,{
-        headers:{
-          Authorization:`Token ${token}`
+      const response = await axios.post(
+        `http://127.0.0.1:8000/customerapi/rentaltransactions/${id}/report_add/`,
+        formData,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
         }
-      })
+      );
       Swal.fire({
         position: "top-center",
         icon: "success",
@@ -64,12 +69,9 @@ function RentalCarPayment() {
         showConfirmButton: false,
         timer: 1500,
       });
-      getRentalPayment()
-       setIsModalOpen(false);
-    } catch (error) {
-      
-    }
-   
+      getRentalPayment();
+      setIsModalOpen(false);
+    } catch (error) {}
   };
 
   const handleCancel = () => {
@@ -90,10 +92,8 @@ function RentalCarPayment() {
           },
         }
       );
-        setModalData(response.data)
-        showModal();
-      
-      
+      setModalData(response.data);
+      showModal();
     } catch (error) {
       console.log(error);
     }
@@ -177,7 +177,7 @@ function RentalCarPayment() {
                           : "No Damage Reported Till Now"}
                       </h6>
                     </MDBListGroupItem>
-                    {rentalPayment[activeItem]?.report_detail?.description ==
+                    {rentalPayment[activeItem]?.Report_detail ==
                     null ? (
                       <MDBListGroupItem>
                         <h6 className="text-black">Report Any Damage </h6>
@@ -190,9 +190,9 @@ function RentalCarPayment() {
                           Report
                         </button>
                       </MDBListGroupItem>
-                    ) : null}
+                    ) : "REport Sent"}
                     \
-                    {rentalPayment[activeItem]?.report_detail?.amount !=
+                    {rentalPayment[activeItem]?.Report_detail?.amount !=
                     null ? (
                       <MDBListGroupItem>
                         <h6 className="text-black">Damage Payment </h6>
