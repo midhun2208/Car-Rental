@@ -16,7 +16,7 @@ import {
   MDBModalFooter,
   MDBInput,
 } from "mdb-react-ui-kit";
-
+import Swal from "sweetalert2";
 import axios from "axios";
 const paginationStyle = {
   marginTop: "20px", // Adjust the top margin as needed
@@ -26,12 +26,14 @@ const paginationStyle = {
 
 function Payment() {
   const [staticModal, setStaticModal] = useState(false);
-  const [resData, setresData] = useState(null);
+  const [resData, setResData] = useState(null);
   const toggleOpen = () => setStaticModal(!staticModal);
   const [rentalPayment, setRentalPayment] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage] = useState(8);
   const token = localStorage.getItem("token");
+  const [amount, setAmount] = useState("");
+  console.log(amount);
 
   useEffect(() => {
     getRentalPayment();
@@ -63,9 +65,44 @@ function Payment() {
         }
       );
       console.log(response.data);
-      setresData(response.data);
+      setResData(response.data);
       toggleOpen();
     } catch (error) {}
+  };
+
+  const handleSentResponse = async () => {
+    const id = resData?.rental_report?.id;
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000/adminapi/reports/${id}/report_response/`,
+        { amount },
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      if (response.status == 200) {
+        toggleOpen();
+        getRentalPayment();
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Response sent Succesfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        position: "top-center",
+        icon: "error",
+        title: "Something Went Wrong",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   };
 
   const indexOfLastCard = currentPage * cardsPerPage;
@@ -76,6 +113,7 @@ function Payment() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   if (rentalPayment === null) return <></>;
+  console.log(rentalPayment);
   return (
     <>
       <Container>
@@ -120,17 +158,23 @@ function Payment() {
                     {" "}
                     <h5>Damage_Status: </h5>
                     <h6>
-                      {payment?.rental_report.description
-                        ? payment?.rental_report.description
+                      {payment?.rental_report?.description
+                        ? payment?.rental_report?.description
                         : "No Damage Reported"}
                     </h6>
                   </MDBListGroupItem>
                   {payment?.rental_report != null ? (
-                    <MDBListGroupItem>
-                      <MDBBtn onClick={() => handleResponse(payment.id)}>
-                        Reply
-                      </MDBBtn>
-                    </MDBListGroupItem>
+                    payment?.rental_response ? (
+                      <MDBListGroupItem>
+                        {payment?.rental_response?.report_status}
+                      </MDBListGroupItem>
+                    ) : (
+                      <MDBListGroupItem>
+                        <MDBBtn onClick={() => handleResponse(payment.id)}>
+                          Reply
+                        </MDBBtn>
+                      </MDBListGroupItem>
+                    )
                   ) : null}
                 </MDBListGroup>
               </MDBCard>
@@ -187,14 +231,18 @@ function Payment() {
                 <h6 className="text-start mx-2 mt-4">
                   Enter the Componesation
                 </h6>
-                <MDBInput label="Enter The Amount" />
+                <MDBInput
+                  label="Enter The Amount"
+                  type="number"
+                  onChange={(e) => setAmount(e.target.value)}
+                />
               </MDBListGroupItem>
             </MDBModalBody>
             <MDBModalFooter>
               <MDBBtn color="secondary" onClick={toggleOpen}>
                 Close
               </MDBBtn>
-              <MDBBtn>Send</MDBBtn>
+              <MDBBtn onClick={handleSentResponse}>Send</MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>

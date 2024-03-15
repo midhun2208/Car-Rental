@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Pagination } from "react-bootstrap";
-import { Button, Modal } from "antd";
+// import { Button, Modal } from "antd";
 import {
   MDBCard,
   MDBCardImage,
@@ -17,12 +17,29 @@ import {
 } from "mdb-react-ui-kit";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 function RentalCarPayment() {
-
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
   const [activeItem, setActiveItem] = useState(0);
   const [photo, setPhoto] = useState(null);
   const [modalData, setModalData] = useState(null);
+  const [paymentData, setPaymentData] = useState(null);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+
+  const [rentalPayment, setRentalPayment] = useState(null);
+  const token = localStorage.getItem("token");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [report, setReport] = useState({
     description: "",
@@ -39,9 +56,6 @@ function RentalCarPayment() {
   const handlePageChange = (newPage) => {
     setActiveItem(newPage - 1);
   };
-  const [rentalPayment, setRentalPayment] = useState(null);
-  const token = localStorage.getItem("token");
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -115,6 +129,52 @@ function RentalCarPayment() {
       console.log(error);
     }
   };
+  const handleShow = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/customerapi/rentaltransactions/${id}/`,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      if (response.status === 200) {
+        setShow(true);
+        setPaymentData(response.data);
+      }
+    } catch (error) {}
+  };
+
+  const handelResponsePayments = async (id) => {
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000/customerapi/reportresponse/${id}/report_pay/`,
+        {},
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log(response);
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Your Payment Success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        getRentalPayment();
+        setShow(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (rentalPayment === null)
     return (
       <h1 className="text-black text-center p-4">
@@ -137,7 +197,10 @@ function RentalCarPayment() {
                     position="top"
                     style={{ height: "200px" }}
                     alt="..."
-                    src={rentalPayment[activeItem]?.vehicle?.image}
+                    src={
+                      ` http://127.0.0.1:8000` +
+                      rentalPayment[activeItem]?.vehicle?.image
+                    }
                   />
                   <MDBListGroup flush>
                     <MDBListGroupItem>
@@ -172,13 +235,12 @@ function RentalCarPayment() {
                     <MDBListGroupItem>
                       <h5 className="text-black">Damage Status: </h5>
                       <h6>
-                        {rentalPayment[activeItem]?.report_detail?.description
+                        {rentalPayment[activeItem]?.rental_report?.description
                           ? "Damage Reported"
                           : "No Damage Reported Till Now"}
                       </h6>
                     </MDBListGroupItem>
-                    {rentalPayment[activeItem]?.Report_detail ==
-                    null ? (
+                    {rentalPayment[activeItem]?.rental_report == null ? (
                       <MDBListGroupItem>
                         <h6 className="text-black">Report Any Damage </h6>
                         <button
@@ -190,15 +252,21 @@ function RentalCarPayment() {
                           Report
                         </button>
                       </MDBListGroupItem>
-                    ) : "REport Sent"}
-                    \
-                    {rentalPayment[activeItem]?.Report_detail?.amount !=
-                    null ? (
-                      <MDBListGroupItem>
-                        <h6 className="text-black">Damage Payment </h6>
-                        <button className="btn btn-success">Proceed</button>
-                      </MDBListGroupItem>
                     ) : null}
+                    {rentalPayment[activeItem]?.rental_response
+                      ?.report_status === "No damage till now" ||rentalPayment[activeItem]?.rental_response===null ? null : (
+                      <MDBListGroupItem>
+                        <h5>Payment For Damage:</h5>
+                        <button
+                          className="btn btn-success mb-2 "
+                          onClick={() =>
+                            handleShow(rentalPayment[activeItem]?.id)
+                          }
+                        >
+                          Payment
+                        </button>
+                      </MDBListGroupItem>
+                    )}
                   </MDBListGroup>
                 </MDBCard>
               </Col>
@@ -261,6 +329,48 @@ function RentalCarPayment() {
             />
           </MDBCardBody>
         </MDBCard>
+      </Modal>
+      {/* Second modal  for the payment */}
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        style={{ marginTop: "70px" }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Payment For Damage</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <img
+            src={
+              `http://127.0.0.1:8000` + paymentData?.rental_report?.damage_image
+            }
+            alt=""
+          />
+          <hr />
+          <h5>Damage: {paymentData?.rental_report?.description}</h5>
+          <hr />
+          <h5>
+            Pending Amount:{" "}
+            <mark>{paymentData?.rental_response?.amount} &#8377;</mark>
+          </h5>
+          <hr />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              handelResponsePayments(paymentData?.rental_response?.id);
+            }}
+          >
+            Pay
+          </Button>
+        </Modal.Footer>
       </Modal>
     </>
   );
