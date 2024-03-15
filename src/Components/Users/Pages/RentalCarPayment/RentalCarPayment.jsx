@@ -6,12 +6,6 @@ import {
   MDBCardImage,
   MDBListGroup,
   MDBListGroupItem,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBBtn,
-  MDBRipple,
-  MDBInput,
   MDBTextArea,
   MDBFile,
 } from "mdb-react-ui-kit";
@@ -21,13 +15,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 function RentalCarPayment() {
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-success",
-      cancelButton: "btn btn-danger",
-    },
-    buttonsStyling: false,
-  });
+
   const [activeItem, setActiveItem] = useState(0);
   const [photo, setPhoto] = useState(null);
   const [modalData, setModalData] = useState(null);
@@ -43,14 +31,15 @@ function RentalCarPayment() {
 
   const [report, setReport] = useState({
     description: "",
-    image: "",
+    damage_image: "",
   });
+  console.log(report);
   const HandelImgChange = (e) => {
     const file = e.target.files[0];
     setPhoto(file);
     setReport((prevDetails) => ({
       ...prevDetails,
-      image: file,
+      damage_image: file,
     }));
   };
   const handlePageChange = (newPage) => {
@@ -63,7 +52,7 @@ function RentalCarPayment() {
 
   const handleOk = async () => {
     const formData = new FormData();
-    formData.append("image", report.image);
+    formData.append("damage_image", report.damage_image);
     formData.append("description", report.description);
     const id = modalData.id;
     try {
@@ -97,6 +86,7 @@ function RentalCarPayment() {
   }, []);
 
   const handleModal = async (id) => {
+   
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/customerapi/rentaltransactions/${id}/`,
@@ -107,7 +97,7 @@ function RentalCarPayment() {
         }
       );
       setModalData(response.data);
-      showModal();
+      setIsModalOpen(true);
     } catch (error) {
       console.log(error);
     }
@@ -141,7 +131,7 @@ function RentalCarPayment() {
       );
       console.log(response.data);
       if (response.status === 200) {
-        setShow(true);
+        showModal();
         setPaymentData(response.data);
       }
     } catch (error) {}
@@ -253,8 +243,8 @@ function RentalCarPayment() {
                         </button>
                       </MDBListGroupItem>
                     ) : null}
-                    {rentalPayment[activeItem]?.rental_response
-                      ?.report_status === "No damage till now" ||rentalPayment[activeItem]?.rental_response===null ? null : (
+                    {rentalPayment[activeItem]?.rental_response ===
+                    null ? null : (
                       <MDBListGroupItem>
                         <h5>Payment For Damage:</h5>
                         <button
@@ -293,42 +283,40 @@ function RentalCarPayment() {
         </Row>
       </Container>
       <Modal
-        title="Report A Damage"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
+        style={{ marginTop: "70px" }}
+        show={isModalOpen}
+        onHide={handleCancel}
+        backdrop="static"
+        keyboard={false}
       >
-        <MDBCard>
-          <MDBRipple
-            rippleColor="light"
-            rippleTag="div"
-            className="bg-image hover-overlay"
-          >
-            <a>
-              <div
-                className="mask"
-                style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}
-              ></div>
-            </a>
-          </MDBRipple>
-          <MDBCardBody>
-            <MDBCardText>
-              <MDBTextArea
-                label="Description message"
-                required
-                onChange={(e) =>
-                  setReport({ ...report, description: e.target.value })
-                }
-              />
-            </MDBCardText>
-            <MDBFile
-              required
-              label="Add image of Damaged part"
-              id="customFile"
-              onChange={HandelImgChange}
-            />
-          </MDBCardBody>
-        </MDBCard>
+        <Modal.Header closeButton>
+          <Modal.Title>Report Damage</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <MDBTextArea
+            label="Description message"
+            required
+            onChange={(e) =>
+              setReport({ ...report, description: e.target.value })
+            }
+          />
+          <hr />
+          <MDBFile
+            required
+            label="Add image of Damaged part"
+            id="customFile"
+            onChange={HandelImgChange}
+          />
+          <hr />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCancel}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleOk}>
+            Report
+          </Button>
+        </Modal.Footer>
       </Modal>
       {/* Second modal  for the payment */}
 

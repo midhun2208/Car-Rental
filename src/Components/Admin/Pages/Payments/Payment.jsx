@@ -166,7 +166,7 @@ function Payment() {
                   {payment?.rental_report != null ? (
                     payment?.rental_response ? (
                       <MDBListGroupItem>
-                        {payment?.rental_response?.report_status}
+                        <h6> <mark>Response Sent</mark> </h6>
                       </MDBListGroupItem>
                     ) : (
                       <MDBListGroupItem>
