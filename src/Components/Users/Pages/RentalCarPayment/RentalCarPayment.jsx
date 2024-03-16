@@ -15,7 +15,6 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 function RentalCarPayment() {
-
   const [activeItem, setActiveItem] = useState(0);
   const [photo, setPhoto] = useState(null);
   const [modalData, setModalData] = useState(null);
@@ -86,7 +85,6 @@ function RentalCarPayment() {
   }, []);
 
   const handleModal = async (id) => {
-   
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/customerapi/rentaltransactions/${id}/`,
