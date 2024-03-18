@@ -2,7 +2,7 @@
 
   
   a:hover {
-    color: #14795e;
+    color: #000000;
   }
   
   .form-login-user {
@@ -42,12 +42,12 @@
   }
   
   .tab-group li a:hover {
-    background: #14795e;
+    background: #0000002f;
     color: #ffffff;
   }
   
   .tab-group .active a {
-    background: #1ab188;
+    background: #00000092;
     color: #ffffff;
   }
   
@@ -114,7 +114,7 @@
   
   .button:hover,
   .button:focus {
-    background: #14795e;
+    background: #00000076;
   }
   
   .button-block {

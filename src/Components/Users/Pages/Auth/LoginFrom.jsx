@@ -19,7 +19,7 @@ function LoginFrom() {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    if (activeTab !== "singup" ) {
+    if (activeTab !== "singup") {
       setRegistration({
         firstname: "",
         lastname: "",
@@ -30,7 +30,6 @@ function LoginFrom() {
       });
     }
   };
-
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +47,7 @@ function LoginFrom() {
         phone: "",
       });
       setActiveTab("login");
-      message.success("Registration Successful")
+      message.success("Registration Successful");
     } catch (error) {
       message.success("Username already taken");
       console.log(error);
@@ -72,8 +71,8 @@ function LoginFrom() {
         username: "",
         phone: "",
       });
-     message.success("Login Successful")
-      
+      message.success("Login Successful");
+
       navigate("/");
     } catch (error) {
       message.error("Check your Username or Password");
@@ -251,8 +250,8 @@ function LoginFrom() {
       <div className="text-center">
         <Link to={"/login/admin"}>
           <button
-            className="btn mt-3"
-            style={{ backgroundColor: "#1ab188", color: "white" }}
+            className="btn mt-3 btn-success"
+            style={{ backgroundColor: "", color: "white" }}
           >
             Admin Login
           </button>

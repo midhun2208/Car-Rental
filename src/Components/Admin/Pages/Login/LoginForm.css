@@ -2,7 +2,7 @@
 
   
   a:hover {
-    color: #14795e;
+    color: #000000;
   }
   
   .form-admin {
@@ -41,12 +41,12 @@
   }
   
   .tab-group li a:hover {
-    background: #14795e;
+    background: #0000002f;
     color: #ffffff;
   }
   
   .tab-group .active a {
-    background: #1ab188;
+    background: #00000092;
     color: #ffffff;
   }
   
@@ -87,7 +87,7 @@
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    background: #1ab188;
+    background: #000000;
     color: #ffffff;
     transition: all.5s ease;
     -webkit-appearance: none;
@@ -95,7 +95,7 @@
   
   .button:hover,
   .button:focus {
-    background: #14795e;
+    background: #00000076;
   }
   
   .button-block {

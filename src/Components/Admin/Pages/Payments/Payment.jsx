@@ -64,6 +64,7 @@ function Payment() {
           },
         }
       );
+      setAmount("");
       console.log(response.data);
       setResData(response.data);
       toggleOpen();
@@ -82,7 +83,8 @@ function Payment() {
           },
         }
       );
-      if (response.status == 200) {
+      if (response.status === 200) {
+        setAmount(" ");
         toggleOpen();
         getRentalPayment();
         Swal.fire({
@@ -166,7 +168,10 @@ function Payment() {
                   {payment?.rental_report != null ? (
                     payment?.rental_response ? (
                       <MDBListGroupItem>
-                        <h6> <mark>Response Sent</mark> </h6>
+                        <h6>
+                          {" "}
+                          <mark>Response Sent</mark>{" "}
+                        </h6>
                       </MDBListGroupItem>
                     ) : (
                       <MDBListGroupItem>
@@ -234,6 +239,7 @@ function Payment() {
                 <MDBInput
                   label="Enter The Amount"
                   type="number"
+                  value = {amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
               </MDBListGroupItem>
