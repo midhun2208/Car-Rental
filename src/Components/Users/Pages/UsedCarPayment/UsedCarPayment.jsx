@@ -23,10 +23,10 @@ const UsedCarPayment = () => {
   const getRentalPayment = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/customerapi/usedvehicles/",
+        "http://127.0.0.1:8000/customerapi/vehiclepurchases/",
         {
           headers: {
-            Authorization: `Token ${token}`,
+            Authorization: `Token f908957f0e915a85848bf74e1ddc529f69c2fc62`,
           },
         }
       );
@@ -56,48 +56,54 @@ const UsedCarPayment = () => {
                 <MDBCard className="">
                   <MDBCardImage
                     position="top"
-                    style={{ height: "300px" }}
+                    style={{ height: "200px" }}
                     alt="..."
-                    src={`http://localhost:8000/${rentalPayment[activeItem]?.image}`}
+                    src={`http://localhost:8000/${rentalPayment[activeItem]?.vehicle?.image}`}
                   />
                   <MDBListGroup flush>
                     <MDBListGroupItem>
                       <h4 className="text-black">
-                        {rentalPayment[activeItem]?.make} :{" "}
-                        {rentalPayment[activeItem]?.model}
+                        {rentalPayment[activeItem]?.vehicle?.make} :{" "}
+                        {rentalPayment[activeItem]?.vehicle?.model}
                       </h4>
                     </MDBListGroupItem>
                     <MDBListGroupItem>
                       <h4 className="text-black">
-                        Reg_NO : {rentalPayment[activeItem]?.reg_number}
+                        Reg_NO :{" "}
+                        {rentalPayment[activeItem]?.vehicle?.reg_number}
                       </h4>
                     </MDBListGroupItem>
 
                     <MDBListGroupItem>
                       <h5 className="text-black">
-                        Engine: {rentalPayment[activeItem]?.type}{" "}
+                        Engine: {rentalPayment[activeItem]?.vehicle?.type}{" "}
                       </h5>
                     </MDBListGroupItem>
                     <MDBListGroupItem>
                       <h5 className="text-black">
-                        Type: {rentalPayment[activeItem]?.transmission}
+                        Type: {rentalPayment[activeItem]?.vehicle?.transmission}
                       </h5>{" "}
                     </MDBListGroupItem>
                     <MDBListGroupItem>
                       <h5 className="text-black">
-                        Colour: {rentalPayment[activeItem]?.colour}
+                        Colour: {rentalPayment[activeItem]?.vehicle?.colour}
                       </h5>
                     </MDBListGroupItem>
                     <MDBListGroupItem>
                       <h5 className="text-black">
-                        Year: {rentalPayment[activeItem]?.year}
+                        Year: {rentalPayment[activeItem]?.vehicle?.year}
+                      </h5>
+                    </MDBListGroupItem>
+                    <MDBListGroupItem>
+                      <h5 className="text-black">
+                        Purchase Method : {rentalPayment[activeItem]?.purchase_method&& "Online🟢"}
                       </h5>
                     </MDBListGroupItem>
 
                     <MDBListGroupItem>
                       <h5 className="text-black">
-                        Total Amount: {rentalPayment[activeItem]?.amount}{" "}
-                        &#8377;
+                        Total Amount:{" "}
+                        {rentalPayment[activeItem]?.vehicle?.amount} &#8377;
                       </h5>
                     </MDBListGroupItem>
                   </MDBListGroup>
