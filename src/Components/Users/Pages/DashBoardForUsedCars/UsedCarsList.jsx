@@ -39,7 +39,7 @@ const UsedCarsList = () => {
     setActivePage(page);
   };
 
-  if (availableCars === null) return <></>;
+  if (availableCars === null) return <h2>- No Cars Have Been Added</h2>;
 
   const indexOfLastItem = activePage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -56,6 +56,7 @@ const UsedCarsList = () => {
 
   return (
     <>
+    
       <div className=" cards-main container-fluid">
         <div className="text-black   row card-div">
           <h1 className="userCard-heading text-center mt-5" data-aos="fade-right"> -Used-Cars </h1>

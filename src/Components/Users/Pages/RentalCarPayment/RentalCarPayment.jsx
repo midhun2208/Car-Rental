@@ -129,7 +129,7 @@ function RentalCarPayment() {
       );
       console.log(response.data);
       if (response.status === 200) {
-        showModal();
+        setShow(true);
         setPaymentData(response.data);
       }
     } catch (error) {}

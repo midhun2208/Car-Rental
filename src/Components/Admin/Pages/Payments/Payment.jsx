@@ -106,7 +106,9 @@ function Payment() {
       });
     }
   };
-
+  if (rentalPayment === null)
+  return <h2 className="text-center p-5">No Payments Till Now....</h2>;
+console.log(rentalPayment);
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards =
@@ -114,8 +116,7 @@ function Payment() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  if (rentalPayment === null) return <></>;
-  console.log(rentalPayment);
+  
   return (
     <>
       <Container>
@@ -239,7 +240,7 @@ function Payment() {
                 <MDBInput
                   label="Enter The Amount"
                   type="number"
-                  value = {amount}
+                  value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
               </MDBListGroupItem>

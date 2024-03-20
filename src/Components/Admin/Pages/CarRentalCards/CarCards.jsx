@@ -8,7 +8,7 @@ import "./CarCards.css";
 function CarCards() {
   const [carsData, setCarsData] = useState(null);
   const navigate = useNavigate();
-  const [usedCarsData, setUsedCarsData] = useState(null)
+  const [usedCarsData, setUsedCarsData] = useState(null);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -36,30 +36,30 @@ function CarCards() {
     }
   };
 
-  const getUsedCarDetails = async()=>{
+  const getUsedCarDetails = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/adminapi/usedvehicles/",{
-        headers:{
-          Authorization: `Token ${token}`
+      const response = await axios.get(
+        "http://127.0.0.1:8000/adminapi/usedvehicles/",
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
         }
-      })
+      );
       console.log(response.data.vehicles);
-      setUsedCarsData(response.data.vehicles)
-    } catch (error) {
-      
-    }
-  }
+      setUsedCarsData(response.data.vehicles);
+    } catch (error) {}
+  };
 
-
-  if (carsData === null ||usedCarsData === null)
-  
+  if (carsData === null || usedCarsData === null)
     return (
       <div>
         <h1 className="text-center p-5">Loading....</h1>
       </div>
-      
     );
-    const filterUsedCars = usedCarsData.filter((i)=>i.purchase_status !== "sold")
+  const filterUsedCars = usedCarsData.filter(
+    (i) => i.purchase_status !== "sold"
+  );
   return (
     <>
       <Container fluid>
@@ -109,27 +109,36 @@ function CarCards() {
 
             <div className="allused-cars shadow-lg rounded-lg">
               <MDBTable hover>
-                <MDBTableHead>
-                  <tr>
-                    <th scope="col">S.NO</th>
-                    <th scope="col">Model</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Registration_NO</th>
-                    <th scope="col">Rate</th>
-                    <th scope="col">Year</th>
-                  </tr>
-                </MDBTableHead>
-                <MDBTableBody>
-                  {filterUsedCars.map((item, index) => (
-                    <tr key={item.id}>
-                      <th scope="row">{index + 1}</th>
-                      <td>{item.model}</td>
-                      <td>{item.type}</td>
-                      <td>{item.reg_number}</td>
-                      <td>{item.amount} &#8377;</td>
-                      <td>{item.year} </td>
+                {filterUsedCars ? (
+                  <div className="text-center ">
+                    <h3 className="text-center my-3">No used cars Avaliable..</h3>
+                  </div>
+                ) : (
+                  <MDBTableHead>
+                    <tr>
+                      <th scope="col">S.NO</th>
+                      <th scope="col">Model</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Registration_NO</th>
+                      <th scope="col">Rate</th>
+                      <th scope="col">Year</th>
                     </tr>
-                  ))}
+                  </MDBTableHead>
+                )}
+
+                <MDBTableBody>
+                  {
+                    filterUsedCars.map((item, index) => (
+                      <tr key={item.id}>
+                        <th scope="row">{index + 1}</th>
+                        <td>{item.model}</td>
+                        <td>{item.type}</td>
+                        <td>{item.reg_number}</td>
+                        <td>{item.amount} &#8377;</td>
+                        <td>{item.year} </td>
+                      </tr>
+                    ))
+                  }
                 </MDBTableBody>
               </MDBTable>
             </div>

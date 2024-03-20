@@ -241,9 +241,9 @@ function Header() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem>
+                {/* <MenuItem>
                   <Typography textAlign="center">Profile</Typography>
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem onClick={handleLogout}>
                   <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
