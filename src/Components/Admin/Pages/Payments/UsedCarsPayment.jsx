@@ -63,33 +63,28 @@ const UsedCarsPayment = () => {
                 <MDBCardBody>
                   <MDBCardTitle>
                     <h3 className=" text-white">
-                      {payment.customer.customer_name}
+                      {payment?.customer?.customer_name}
                     </h3>
                   </MDBCardTitle>
                 </MDBCardBody>
                 <MDBListGroup flush>
                   <MDBListGroupItem>
-                    <h4>Car Make: {payment.vehicle.model}</h4>
+                    <h4>Car Make: {payment?.vehicle?.model}</h4>
                   </MDBListGroupItem>
                   <MDBListGroupItem>
-                    <h5>Reg_NO : {payment.vehicle.reg_number}</h5>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem>
-                    {" "}
-                    <h5>Phone: {payment.customer.phone}</h5>
+                    <h5>Reg_NO : {payment?.vehicle?.reg_number}</h5>
                   </MDBListGroupItem>
                   <MDBListGroupItem>
                     {" "}
-                    <h5>Purchase_Date:</h5> {payment.purchase_date}
+                    <h5>Phone: {payment?.customer?.phone}</h5>
                   </MDBListGroupItem>
                   <MDBListGroupItem>
                     {" "}
-                    <h5>To: </h5>
-                    {payment.rental_enddate}
+                    <h5>Purchase_Date:</h5> {payment?.purchase_date}
                   </MDBListGroupItem>
                   <MDBListGroupItem>
                     {" "}
-                    <h5>Amount Paid: {payment.amount} &#8377;</h5>
+                    <h5>Amount Paid: {payment?.amount} &#8377;</h5>
                   </MDBListGroupItem>
 
                 </MDBListGroup>
