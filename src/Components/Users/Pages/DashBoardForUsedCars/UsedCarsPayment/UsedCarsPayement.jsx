@@ -51,7 +51,7 @@ const UsedCarsPayement = () => {
       return;
     }
     try {
-      const response = await axios.post('http://127.0.0.1:8000/customerapi/usedvehicles/1/vehicle_payment/',{},{
+      const response = await axios.post(`http://127.0.0.1:8000/customerapi/usedvehicles/${id}/vehicle_payment/`,{},{
         headers:{
           Authorization: `Token ${token}`
         }
