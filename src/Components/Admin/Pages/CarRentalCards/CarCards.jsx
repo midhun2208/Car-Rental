@@ -110,36 +110,37 @@ function CarCards() {
             <div className="allused-cars shadow-lg rounded-lg">
               <MDBTable hover>
                 {filterUsedCars ? (
-                  <div className="text-center ">
-                    <h3 className="text-center my-3">No used cars Avaliable..</h3>
-                  </div>
-                ) : (
-                  <MDBTableHead>
-                    <tr>
-                      <th scope="col">S.NO</th>
-                      <th scope="col">Model</th>
-                      <th scope="col">Type</th>
-                      <th scope="col">Registration_NO</th>
-                      <th scope="col">Rate</th>
-                      <th scope="col">Year</th>
+                 <>
+                 <MDBTableHead>
+                   <tr>
+                     <th scope="col">S.NO</th>
+                     <th scope="col">Model</th>
+                     <th scope="col">Type</th>
+                     <th scope="col">Registration_NO</th>
+                     <th scope="col">Rate</th>
+                     <th scope="col">Year</th>
+                   </tr>
+                 </MDBTableHead>
+                  <MDBTableBody>
+                 
+                 { filterUsedCars.map((item, index) => (
+                    <tr key={item.id}>
+                      <th scope="row">{index + 1}</th>
+                      <td>{item.model}</td>
+                      <td>{item.type}</td>
+                      <td>{item.reg_number}</td>
+                      <td>{item.amount} &#8377;</td>
+                      <td>{item.year} </td>
                     </tr>
-                  </MDBTableHead>
+                  ))}
+                
+              </MDBTableBody>
+              </>
+                  
+                ) : (<h1 className="text-center"> No Used Cars Avaliable</h1>
                 )}
 
-                <MDBTableBody>
-                  {
-                    filterUsedCars.map((item, index) => (
-                      <tr key={item.id}>
-                        <th scope="row">{index + 1}</th>
-                        <td>{item.model}</td>
-                        <td>{item.type}</td>
-                        <td>{item.reg_number}</td>
-                        <td>{item.amount} &#8377;</td>
-                        <td>{item.year} </td>
-                      </tr>
-                    ))
-                  }
-                </MDBTableBody>
+               
               </MDBTable>
             </div>
           </Col>

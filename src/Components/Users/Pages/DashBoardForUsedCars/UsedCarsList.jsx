@@ -103,10 +103,10 @@ const UsedCarsList = () => {
                 </MDBListGroupItem>
                 <MDBCardBody>
                   <hr />
-                  <Link to={`/UsedCars/Payment/${item.id}`}>
+                  {/* <Link to={`/UsedCars/Payment/${item.id}`}>
                     {" "}
                     <button className="btn btn-white mb-2">Buy Now</button>
-                  </Link>
+                  </Link> */}
                 </MDBCardBody>
               </div>
             </Col>

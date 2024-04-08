@@ -78,10 +78,11 @@ function PaymentUserRental() {
     }
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/customerapi/rentalvehicles/${id}/rental_transaction/`,({
+        `http://127.0.0.1:8000/customerapi/rentalvehicles/${id}/rental_transaction/`,
+        {
           rental_startdate: dayjs(rental_startdate).format(),
           rental_enddate: dayjs(rental_enddate).format(),
-        }),
+        },
         {
           headers: {
             Authorization: `Token ${token}`,
@@ -158,6 +159,7 @@ function PaymentUserRental() {
                       timeFormat="HH:mm"
                       timeIntervals={60}
                       dateFormat="yyyy-MM-dd'T'HH:mm:ss"
+                      minDate={new Date()}
                     />
                   </div>
                   <div className="mb-5">
@@ -170,9 +172,10 @@ function PaymentUserRental() {
                       timeFormat="HH:mm"
                       timeIntervals={60}
                       dateFormat="yyyy-MM-dd'T'HH:mm:ss"
+                      minDate={new Date()}
                     />
                   </div>
-                  
+
                   <div className="mb-5">
                     <h3>Total Aomount: {totalAmount} &#8377;</h3>
                   </div>
@@ -220,6 +223,7 @@ function PaymentUserRental() {
                     timeFormat="HH:mm"
                     timeIntervals={60}
                     dateFormat="yyyy-MM-dd'T'HH:mm:ss"
+                    minDate={new Date()}
                   />
                 </div>
                 <div className="mb-4">
@@ -232,6 +236,7 @@ function PaymentUserRental() {
                     timeFormat="HH:mm"
                     timeIntervals={60}
                     dateFormat="yyyy-MM-dd'T'HH:mm:ss"
+                    minDate={new Date()}
                   />
                 </div>
                 <div>
