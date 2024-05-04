@@ -187,7 +187,7 @@ function PaymentUserRental() {
                 </div>
                 <div className="">
                   <button className="btn btn-success mb-2" onClick={handleShow}>
-                    Procced to Payment
+                    Procced to 
                   </button>
                 </div>
               </div>
