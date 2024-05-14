@@ -236,7 +236,7 @@ function PaymentUserRental() {
                     timeFormat="HH:mm"
                     timeIntervals={60}
                     dateFormat="yyyy-MM-dd'T'HH:mm:ss"
-                    minDate={new Date()}
+                    // minDate={new Date()}
                   />
                 </div>
                 <div>
