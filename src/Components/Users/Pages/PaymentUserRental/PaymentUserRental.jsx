@@ -238,7 +238,7 @@ function PaymentUserRental() {
                     dateFormat="yyyy-MM-dd'T'HH:mm:ss"
                     minDate={new Date()}
                   />
-                </div>
+                {/* </div> */}
                 <div>
                   total:
                   <h3>{totalAmount} &#8377;</h3>
